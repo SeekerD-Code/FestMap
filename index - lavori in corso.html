@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <link rel="icon" type="image/png" href="/Favicon SDC.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>FestMap - Lavori in Corso | Seeker D. Code</title>
+    <meta name="description" content="L'applicazione FestMap è attualmente in fase di sviluppo. Scopri in anteprima la mappa interattiva dedicata a sagre, fiere del fumetto e folklore in Italia.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <script>
+    // Controllo modalità sviluppatore per AdSense
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('developer') === 'true') {
+        sessionStorage.setItem('devMode', 'true');
+    }
+    const isDeveloper = sessionStorage.getItem('devMode') === 'true';
+
+    if (window.location.protocol !== 'file:' && !isDeveloper) {
+        const adsenseScript = document.createElement('script');
+        adsenseScript.async = true;
+        adsenseScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9544811471414500";
+        adsenseScript.crossOrigin = "anonymous";
+        document.head.appendChild(adsenseScript);
+    }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <img src="../SD.C - logo orizzontale.png" alt="Seeker D. Code" class="logo-img"
+                 style="height: auto; object-fit: contain;
+                        filter: drop-shadow(15px 15px 0px #fff) 
+                                drop-shadow(-15px -15px 0px #fff) 
+                                drop-shadow(15px -15px 0px #fff) 
+                                drop-shadow(-15px 15px 0px #fff) 
+                                drop-shadow(0px 0px 10px rgba(255,255,255,1));">
+        </div>
+    </header>
+
+    <nav class="main-nav" style="position: relative; z-index: 10; display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: 15px; padding: 10px;">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About Us</a> 
+        
+        <div class="nav-dropdown">
+            <button class="dropdown-trigger">Web Apps & Strumenti <span class="arrow">▾</span></button>
+            <div class="dropdown-menu">
+                <a href="../apps.html">Catalogo App</a>
+                <a href="../apps/festmap-guida.html">FestMap (Mappa Eventi)</a>
+                <a href="../apps/live-speech-text-guida.html">Live Speech Text (trascrizione online)</a>
+                <a href="../cos-e-pwa.html">Cos'è una PWA</a>
+            </div>
+        </div>
+
+        <a href="../blog.html">Blog & Guide</a>
+        <a href="../faq.html">FAQ & Supporto</a>
+        <a href="../supporto-page/supporto.html">Come Supportarci</a>
+        <a href="../contatti.html">Contatti</a>
+    </nav>
+
+    <div class="main-layout">
+        
+        <aside class="ads-sidebar" id="ad-top">
+            <ins class="adsbygoogle ads-ibrida"
+                style="display:block;"
+                data-ad-client="ca-pub-9544811471414500"
+                data-ad-slot="7833202644"
+                data-ad-format="auto"
+                data-full-width-responsive="false">
+            </ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </aside>
+
+        <main class="container" style="max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; line-height: 1.7;">
+            
+            <div style="margin-bottom: 20px;">
+                <span style="background-color: #ffd166; color: #000; padding: 6px 15px; font-weight: bold; border-radius: 20px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;">
+                    🛠️ In Fase di Sviluppo
+                </span>
+            </div>
+
+            <h1 style="font-size: 2.6rem; color: var(--text-dark); margin-bottom: 15px; line-height: 1.2;">
+                FestMap: Stiamo preparando qualcosa di grande
+            </h1>
+            
+            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px auto;">
+                Il codice è sulla scrivania, i database geografici si stanno popolando. La mappa definitiva degli eventi italiani sta per arrivare sul tuo browser.
+            </p>
+
+            <div style="text-align: left; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); margin-bottom: 40px;">
+                <h2 style="font-size: 1.5rem; color: var(--text-dark); margin-bottom: 15px;">Cosa sarà FestMap?</h2>
+                <p style="margin-bottom: 15px;">
+                    FestMap è una <strong>Progressive Web App (PWA)</strong> cross-platform progettata per aggregare, mappare e rendere facilmente consultabili le manifestazioni tradizionali e alternative su tutto il territorio nazionale. Grazie alle performance del framework Flutter e alla leggerezza del codice compilato per il web, potrai cercare la tua prossima destinazione direttamente dalla mappa, filtrando i risultati in tempo reale anche quando la connessione mobile è limitata.
+                </p>
+                <p style="margin-bottom: 20px;">
+                    Stiamo strutturando il database interno per dividere minuziosamente ogni appuntamento in quattro grandi macro-aree tematiche:
+                </p>
+                
+                <ul style="padding-left: 20px; margin-bottom: 0;">
+                    <li style="margin-bottom: 8px;"><strong>🍲 Food:</strong> La rotta dedicata alle sagre enogastronomiche e alla riscoperta delle tradizioni culinarie locali.</li>
+                    <li style="margin-bottom: 8px;"><strong>🎭 Comics:</strong> Spazio alla cultura nerd, raduni cosplay, fiere del fumetto e festival del gioco.</li>
+                    <li style="margin-bottom: 8px;"><strong>🏰 Folk:</strong> Un tuffo nel passato tra rievocazioni storiche, palii medievali e concerti di musica celtica e folkloristica.</li>
+                    <li style="margin-bottom: 0;"><strong>🌲 Wild:</strong> Per gli spiriti liberi, con raduni alternativi, festival nella natura e manifestazioni decisamente fuori dagli schemi classici.</li>
+                </ul>
+            </div>
+
+            <p style="font-size: 1rem; color: var(--text-dark); font-weight: 600;">
+                Vuoi saperne di più sulla tecnologia che stiamo usando?
+            </p>
+            <div style="margin-top: 15px; margin-bottom: 20px;">
+                <a href="../blog/perche-scegliere-pwa.html" style="color: var(--accent-sky); text-decoration: underline; font-weight: bold; margin: 0 15px;">Leggi l'articolo sulle PWA</a>
+                <a href="../blog/mappe-interattive-flutter.html" style="color: var(--accent-sky); text-decoration: underline; font-weight: bold; margin: 0 15px;">Dietro le quinte dello sviluppo in Flutter</a>
+            </div>
+
+        </main>
+    </div>
+
+    <div class="ads-banner" id="ad-bottom">
+        <ins class="adsbygoogle"
+            style="display:block;"
+            data-ad-client="ca-pub-9544811471414500"
+            data-ad-slot="1393962976"
+            data-ad-format="horizontal"
+            data-full-width-responsive="false">
+        </ins> 
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <footer>
+        <p style="margin-bottom: 10px;">
+            <a href="../Privacy & Cookie Policy.html" style="color: #000000; text-decoration: underline; font-weight: bold;">Privacy & Cookie Policy</a>  |  
+            <a href="../note-legali.html" style="color: #000000; text-decoration: underline; font-weight: bold;">Note Legali</a>  |  
+            <a href="../contatti.html" style="color: #000000; text-decoration: underline; font-weight: bold;">CONTATTI</a>
+        </p>
+        
+        <p style="margin-bottom: 15px;">© 2026 Seeker d. Code. • Tutti i diritti riservati.</p>
+        
+        <div id="google_translate_element"></div>
+
+        <script type="text/javascript">
+            if (window.location.protocol !== 'file:') {
+                function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({
+                        pageLanguage: 'it',
+                        includedLanguages: 'en,es,fr,zh-CN,de,ja,ru',
+                        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                    }, 'google_translate_element');
+                }
+                
+                const translateScript = document.createElement('script');
+                translateScript.type = 'text/javascript';
+                translateScript.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+                document.head.appendChild(translateScript);
+            }
+        </script>
+    </footer>
+
+</body>
+</html>
