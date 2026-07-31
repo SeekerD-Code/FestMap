@@ -49,5 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 export function apriModaleDettagli(ev) {
     localStorage.setItem('eventoSelezionatoDettaglio', JSON.stringify(ev));
-    window.location.href = 'dati-evento.html';
+    
+    // Controlla se la pagina corrente è dentro la cartella 'eventi'
+    const isInEventi = window.location.pathname.includes('/eventi/');
+    const targetUrl = isInEventi ? '../dati-evento.html' : 'dati-evento.html';
+    
+    window.location.href = targetUrl;
 }
