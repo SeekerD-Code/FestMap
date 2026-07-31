@@ -1,0 +1,304 @@
+/* --- Sfondo Festoso e Dinamico --- */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2b1055, #7597de, #b5179e);
+    background-size: 200% 200%;
+    animation: festiveBackground 8s ease infinite;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    z-index: 9999;
+    overflow: hidden;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+}
+
+/* --- Header: Logo e sottotitolo in alto a sinistra --- */
+.splash-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px 20px;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.header-left-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 220px;
+    padding-left: 10px;
+}
+
+.splash-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Logo Ingrandito --- */
+.splash-logo-top {
+    max-width: 130px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+    animation: pulseLogoTop 2s ease-in-out infinite;
+}
+
+@keyframes pulseLogoTop {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+}
+
+.splash-header-text {
+    text-align: center;
+    width: 100%;
+}
+
+.splash-tagline {
+    font-family: "Henny Penny", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 100, 200, 0.6);
+    opacity: 0.95;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+    margin: 0;
+    text-align: center;
+}
+
+/* --- Contenuto Centrale (Mappa e Pin) --- */
+.splash-center-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 0px;
+
+}
+
+.italy-map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Contenitore dei 32 Pin --- */
+#pins-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.italy-map-img {
+    width: 120%;
+    max-width: 1400px;
+    height: auto;
+    opacity: 0.4;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+}
+
+/* --- Stile dei Pin PNG --- */
+.map-pin {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    pointer-events: none;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Visibilità attivata da JS */
+.map-pin.pin-visibile {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Dimensioni ottimali per categoria */
+.map-pin.anim-food { width: 36px; height: 36px; }
+.map-pin.anim-comics { width: 36px; height: 36px; }
+.map-pin.anim-folk { width: 34px; height: 34px; }
+.map-pin.anim-wild { width: 30px; height: 30px; }
+
+/* Contenitore icona nel loader */
+#loader-icon-container {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loader-icon-container img,
+#loader-icon-container png {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* --- Posizione dei 32 Pin sulla Mappa --- */
+.pin-1 { top: -20%; left: 20%; animation-name: dropPin1; }
+.pin-2 { top: 0%; left: 44%; animation-name: dropPin2; }
+.pin-3 { top: 36%; left: 48%; animation-name: dropPin3; }
+.pin-4 { top: 120%; left: 60%; animation-name: dropPin4; }
+.pin-5 { top: -30%; left: 0%; animation-name: dropPin5; }
+.pin-6 { top: 70%; left: 12%; animation-name: dropPin6; }
+.pin-7 { top: 65%; left: 69%; animation-name: dropPin7; }
+.pin-8 { top: -3%; left: 8%; animation-name: dropPin8; }
+.pin-9 { top: 10%; left: 40%; animation-name: dropPin9; }
+.pin-10 { top: 15%; left: 30%; animation-name: dropPin10; }
+.pin-11 { top: -15%; left: 45%; animation-name: dropPin11; }
+.pin-12 { top: 25%; left: 33%; animation-name: dropPin12; }
+.pin-13 { top: -22%; left: 35%; animation-name: dropPin13; }
+.pin-14 { top: -31%; left: 50%; animation-name: dropPin14; }
+.pin-15 { top: -40%; left: 38%; animation-name: dropPin15; }
+.pin-16 { top: 18%; left: 55%; animation-name: dropPin16; }
+.pin-17 { top: -10%; left: 33%; animation-name: dropPin17; }
+.pin-18 { top: 135%; left: 68%; animation-name: dropPin18; }
+.pin-19 { top: 128%; left: 65%; animation-name: dropPin19; }
+.pin-20 { top: 20%; left: 50%; animation-name: dropPin20; }
+.pin-21 { top: -10%; left: 20%; animation-name: dropPin21; }
+.pin-22 { top: 75%; left: 80%; animation-name: dropPin22; }
+.pin-23 { top: 52%; left: 78%; animation-name: dropPin23; }
+.pin-24 { top: -8%; left: 1%; animation-name: dropPin24; }
+.pin-25 { top: 50%; left: 55%; animation-name: dropPin25; }
+.pin-26 { top: 38%; left: 60%; animation-name: dropPin26; }
+.pin-27 { top: 45%; left: 70%; animation-name: dropPin27; }
+.pin-28 { top: 102%; left: 78%; animation-name: dropPin28; }
+.pin-29 { top: 90%; left: 85%; animation-name: dropPin29; }
+.pin-30 { top: 70%; left: 97%; animation-name: dropPin30; }
+.pin-31 { top: -31%; left: 25%; animation-name: dropPin31; }
+.pin-32 { top: 85%; left: 15%; animation-name: dropPin32; }
+
+/* --- Keyframes dei 32 Pin --- */
+@keyframes dropPin1 { 0%, 2% { opacity: 0; transform: scale(0); } 4% { opacity: 1; transform: scale(1.3); } 6% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin2 { 0%, 5% { opacity: 0; transform: scale(0); } 7% { opacity: 1; transform: scale(1.3); } 9% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin3 { 0%, 9% { opacity: 0; transform: scale(0); } 11% { opacity: 1; transform: scale(1.3); } 13% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin4 { 0%, 14% { opacity: 0; transform: scale(0); } 16% { opacity: 1; transform: scale(1.3); } 18% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin5 { 0%, 20% { opacity: 0; transform: scale(0); } 22% { opacity: 1; transform: scale(1.3); } 24% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin6 { 0%, 26% { opacity: 0; transform: scale(0); } 28% { opacity: 1; transform: scale(1.3); } 30% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin7 { 0%, 32% { opacity: 0; transform: scale(0); } 34% { opacity: 1; transform: scale(1.3); } 36% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin8 { 0%, 38% { opacity: 0; transform: scale(0); } 40% { opacity: 1; transform: scale(1.3); } 42% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin9 { 0%, 43% { opacity: 0; transform: scale(0); } 45% { opacity: 1; transform: scale(1.3); } 47% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin10 { 0%, 48% { opacity: 0; transform: scale(0); } 50% { opacity: 1; transform: scale(1.3); } 52% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin11 { 0%, 52% { opacity: 0; transform: scale(0); } 54% { opacity: 1; transform: scale(1.3); } 56% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin12 { 0%, 56% { opacity: 0; transform: scale(0); } 58% { opacity: 1; transform: scale(1.3); } 60% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin13 { 0%, 60% { opacity: 0; transform: scale(0); } 62% { opacity: 1; transform: scale(1.3); } 64% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin14 { 0%, 63% { opacity: 0; transform: scale(0); } 65% { opacity: 1; transform: scale(1.3); } 67% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin15 { 0%, 66% { opacity: 0; transform: scale(0); } 68% { opacity: 1; transform: scale(1.3); } 70% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin16 { 0%, 69% { opacity: 0; transform: scale(0); } 71% { opacity: 1; transform: scale(1.3); } 73% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin17 { 0%, 72% { opacity: 0; transform: scale(0); } 74% { opacity: 1; transform: scale(1.3); } 76% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin18 { 0%, 75% { opacity: 0; transform: scale(0); } 77% { opacity: 1; transform: scale(1.3); } 79% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin19 { 0%, 78% { opacity: 0; transform: scale(0); } 80% { opacity: 1; transform: scale(1.3); } 82% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin20 { 0%, 80% { opacity: 0; transform: scale(0); } 82% { opacity: 1; transform: scale(1.3); } 84% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin21 { 0%, 82% { opacity: 0; transform: scale(0); } 84% { opacity: 1; transform: scale(1.3); } 86% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin22 { 0%, 84% { opacity: 0; transform: scale(0); } 86% { opacity: 1; transform: scale(1.3); } 88% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin23 { 0%, 86% { opacity: 0; transform: scale(0); } 88% { opacity: 1; transform: scale(1.3); } 90% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin24 { 0%, 88% { opacity: 0; transform: scale(0); } 90% { opacity: 1; transform: scale(1.3); } 92% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin25 { 0%, 93% { opacity: 0; transform: scale(0); } 94% { opacity: 1; transform: scale(1.3); } 96% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin26 { 0%, 94% { opacity: 0; transform: scale(0); } 95% { opacity: 1; transform: scale(1.3); } 97% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin27 { 0%, 95% { opacity: 0; transform: scale(0); } 96% { opacity: 1; transform: scale(1.3); } 98% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin28 { 0%, 96% { opacity: 0; transform: scale(0); } 97% { opacity: 1; transform: scale(1.3); } 99% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin29 { 0%, 97% { opacity: 0; transform: scale(0); } 98% { opacity: 1; transform: scale(1.3); } 99.5% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin30 { 0%, 98% { opacity: 0; transform: scale(0); } 99% { opacity: 1; transform: scale(1.3); } 99.8% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin31 { 0%, 98.5% { opacity: 0; transform: scale(0); } 99% { opacity: 1; transform: scale(1.3); } 99.5% { transform: scale(1); } 100% { opacity: 1; } }
+@keyframes dropPin32 { 0%, 99% { opacity: 0; transform: scale(0); } 99.5% { opacity: 1; transform: scale(1.3); } 100% { transform: scale(1); } 100% { opacity: 1; } }
+
+/* --- Parte Inferiore: Loader e Status --- */
+.splash-bottom-content {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    margin-bottom: 50px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader-status-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.loader-text {
+    font-size: 1.3rem;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.loader-container {
+    width: 100%;
+}
+
+.progress-bar {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.progress-fill {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #ffcc00, #ff4500);
+    border-radius: 5px;
+    width: 0%;
+    animation: fillProgress 14s ease-in-out forwards;
+}
+
+/* --- Animazioni Globali --- */
+@keyframes fillProgress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes festiveBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.splash-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4A148C">
+    <!-- Base (comune) -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-menu.css">
+    <link rel="stylesheet" href="css/style-pc.css" media="(min-width: 768px)">
+
+    <link rel="stylesheet" href="css/mobile/style-mobile.css">
+    <link rel="stylesheet" href="css/mobile/style-mobile-index.css">
+    <link rel="stylesheet" href="css/mobile/style-mobile-menu.css">
+
+    <title>FestMap - I tuoi Preferiti</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+</head>
+<body>
+
+<!-- INTERFACCIA PRINCIPALE DELL'APP (PREFERITI) -->
+<div id="app" class="main-app-container">
+
+    <!-- HEADER FISSO -->
+    <header class="app-header" style="position: relative;">
+        <button id="menu-toggle-btn" class="icon-btn" aria-label="Menu">
+            <span>☰</span>
+        </button>
+
+        <nav class="bottom-nav inline-nav-links">
+            <a href="index.html" class="nav-item">
+                <img src="images/logo FM.png" alt="Logo" class="home-logo">
+                <span>Home</span>
+            </a>
+            <a href="map.html" class="nav-item">
+                <span class="nav-icon">🗺️</span>
+                <span class="nav-label">Mappa</span>
+            </a>
+            <a href="calendario.html" class="nav-item">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Calendario</span>
+            </a>
+            <a href="preferiti.html" class="nav-item active">
+                <span class="nav-icon">❤️</span>
+                <span class="nav-label">Preferiti</span>
+            </a>
+        </nav>
+
+        <div class="header-right-space"></div>
+
+        <!-- Contatore Eventi Preferiti -->
+        <div id="event-counter-badge" style="position: absolute; right: 15px; top: 12px; background: rgba(0, 0, 0, 0.06); padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; color: #444; display: inline-block;">
+            Eventi: <span id="counter-value">0</span>
+        </div>
+    </header>
+
+    <!-- BARRA DI RICERCA E FILTRI -->
+    <section class="search-section">
+        <div class="search-bar-wrapper" style="display: flex; gap: 10px; align-items: center;">
+            <input type="text" id="search-input" placeholder="Cerca tra i preferiti..." style="flex: 1;">
+            <button id="advanced-search-toggle" class="btn-filter">Filtri</button>
+            <select id="sort-order-select" class="sort-dropdown">
+                <option value="asc">Data Crescente</option>
+                <option value="desc">Data Decrescente</option>
+            </select>
+        </div>
+
+        <div id="advanced-filters-panel" class="filters-panel hidden">
+            <div class="filter-group">
+                <label>Categoria:</label>
+                <select id="filter-tipo">
+                    <option value="">Tutti i tipi</option>
+                    <option value="wild">Wild</option>
+                    <option value="comics">Comics</option>
+                    <option value="food">Food</option>
+                    <option value="folk">Folk</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Mese:</label>
+                <select id="filter-mese"></select>
+            </div>
+            <div class="filter-group">
+                <label>Data Specifica:</label>
+                <input type="date" id="filter-data">
+            </div>
+            <div class="filter-group range-group">
+                <label>Periodo (Da - A):</label>
+                <input type="date" id="filter-da">
+                <input type="date" id="filter-a">
+            </div>
+            <div class="filter-group">
+                <label>Località:</label>
+                <input type="text" id="filter-citta" placeholder="Città">
+                <input type="text" id="filter-provincia" placeholder="Provincia (es. SI)">
+                <input type="text" id="filter-regione" placeholder="Regione">
+            </div>
+            <button id="apply-filters-btn" class="btn-primary">Applica Filtri</button>
+        </div>
+    </section>
+
+    <!-- MENU LATERALE (DRAWER) -->
+    <nav id="side-drawer" class="drawer">
+        <div class="drawer-header">
+            <h3>Menu</h3>
+            <button id="drawer-close-btn">&times;</button>
+        </div>
+        <ul class="drawer-links">
+            <li><a href="eventi/wild.html">Wild Festivals</a></li>
+            <li><a href="eventi/comics.html">Comics & Cosplay</a></li>
+            <li><a href="eventi/food.html">Food & Good</a></li>
+            <li><a href="eventi/folk.html">Folklore & Tradizioni</a></li>
+            <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+            <li><a href="contatti.html" style="font-weight: bold !important; color: #ff6b6b !important; text-decoration: underline !important;">Segnala un Evento & Contatti</a></li>            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy & Note Legali</a></li>
+        </ul>
+    </nav>
+    <div id="drawer-backdrop" class="backdrop"></div>
+
+    <!-- Contenuto Lista Preferiti -->
+    <main class="home-content">
+        <!-- Pulsante per visualizzare i preferiti sulla Mappa -->
+        <div style="text-align: center; margin: 15px 0;">
+            <a href="mappa-preferiti.html" id="btn-mostra-mappa-preferiti" class="btn btn-primary" style="padding: 10px 20px; text-decoration: none; display: inline-block;">
+                Mostra sulla Mappa
+            </a>
+        </div>
+
+        <section class="upcoming-events-section">
+            <h2>I tuoi Eventi Preferiti</h2>
+            <div id="preferiti-container" class="events-list">
+                <!-- Generato via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<script type="module" src="js/app.js"></script>
+<script type="module" src="js/preferiti.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+
+        <link rel="manifest" href="../manifest.json">
+        <meta name="theme-color" content="#4A148C">
+
+    <!-- Base (comune) - Percorsi risalendo di una cartella -->
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style-menu.css">
+    <link rel="stylesheet" href="../css/style-pc.css">
+
+    <!-- Mobile -->
+    <link rel="stylesheet" href="../css/mobile/style-mobile.css">
+    <link rel="stylesheet" href="../css/mobile/style-mobile-index.css">
+    <link rel="stylesheet" href="../css/mobile/style-mobile-menu.css">
+    <link rel="stylesheet" href="../css/mobile/style-mobyle-splashscreen.css">
+
+    <!-- Foglio di stile specifico per la sezione eventi/categorie -->
+    <link rel="stylesheet" href="style-eventi.css">
+
+    <title>FestMap - Food & Good</title>
+    <input type="hidden" id="filter-tipo" value="food">
+</head>
+<body>
+
+<!-- INTERFACCIA PRINCIPALE DELLA PAGINA CATEGORIA -->
+<div id="app" class="main-app-container">
+
+    <!-- HEADER FISSO -->
+    <header class="app-header" style="position: relative;">
+        <button id="menu-toggle-btn" class="icon-btn" aria-label="Menu">
+            <span>☰</span>
+        </button>
+
+        <nav class="bottom-nav inline-nav-links">
+            <a href="../index.html" class="nav-item">
+                <img src="../images/logo FM.png" alt="Logo" class="home-logo">
+                <span>Home</span>
+            </a>
+            <a href="../map.html" class="nav-item">
+                <span class="nav-icon">🗺️</span>
+                <span class="nav-label">Mappa</span>
+            </a>
+            <a href="../calendario.html" class="nav-item">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Calendario</span>
+            </a>
+            <a href="../preferiti.html" class="nav-item">
+                <span class="nav-icon">❤️</span>
+                <span class="nav-label">Preferiti</span>
+            </a>
+        </nav>
+
+        <div class="header-right-space"></div>
+
+        <!-- Contatore Eventi Categoria -->
+        <div id="event-counter-badge" style="position: absolute; right: 15px; top: 12px; background: rgba(0, 0, 0, 0.06); padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; color: #444; display: inline-block;">
+            Eventi: <span id="counter-value">0</span>
+        </div>
+    </header>
+
+    <!-- INTESTAZIONE CATEGORIA CON TITOLO E ICONA -->
+    <section class="category-header-section" style="padding: 20px 20px 10px 20px; display: flex; align-items: center; gap: 15px;">
+        <img src="images/food.webp" alt="Icona Food" style="width: 50px; height: 50px; object-fit: contain;">
+        <div>
+            <h1 style="margin: 0; font-size: 1.8rem; color: #333;">Food & Good</h1>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.95rem;">Tutti gli eventi dedicati all'enogastronomia, alle sagre tipiche, allo street food e alle eccellenze culinarie in Italia.</p>
+        </div>
+    </section>
+
+    <!-- BARRA DI RICERCA E FILTRI (SENZA FILTRO CATEGORIA FISSA) -->
+    <section class="search-section" style="padding: 10px 20px;">
+        <div class="search-bar-wrapper" style="display: flex; gap: 10px; align-items: center;">
+            <input type="text" id="search-input" placeholder="Cerca evento, città, regione..." style="flex: 1;">
+            <button id="advanced-search-toggle" class="btn-filter">Filtri</button>
+            <select id="sort-order-select" class="sort-dropdown">
+                <option value="asc">Data Crescente</option>
+                <option value="desc">Data Decrescente</option>
+            </select>
+        </div>
+
+        <div id="advanced-filters-panel" class="filters-panel hidden">
+            <!-- Nota: Il filtro "tipo/categoria" è stato rimosso poiché la pagina è già filtrata alla fonte -->
+            <div class="filter-group">
+                <label>Mese:</label>
+                <select id="filter-mese"></select>
+            </div>
+            <div class="filter-group">
+                <label>Data Specifica:</label>
+                <input type="date" id="filter-data">
+            </div>
+            <div class="filter-group range-group">
+                <label>Periodo (Da - A):</label>
+                <input type="date" id="filter-da">
+                <input type="date" id="filter-a">
+            </div>
+            <div class="filter-group">
+                <label>Località:</label>
+                <input type="text" id="filter-citta" placeholder="Città">
+                <input type="text" id="filter-provincia" placeholder="Provincia (es. SI)">
+                <input type="text" id="filter-regione" placeholder="Regione">
+            </div>
+            <button id="apply-filters-btn" class="btn-primary">Applica Filtri</button>
+        </div>
+    </section>
+
+    <!-- MENU LATERALE (DRAWER) -->
+    <nav id="side-drawer" class="drawer">
+        <div class="drawer-header">
+            <h3>Menu</h3>
+            <button id="drawer-close-btn">&times;</button>
+        </div>
+        <ul class="drawer-links">
+            <li><a href="wild.html">Wild Festivals</a></li>
+            <li><a href="comics.html">Comics & Cosplay</a></li>
+            <li><a href="food.html">Food Fairs</a></li>
+            <li><a href="folk.html">Folk & Tradizioni</a></li>
+            <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+
+            <li><a href="../contatti.html" style="font-weight: bold !important; color: #ff6b6b !important; text-decoration: underline !important;">Segnala un Evento & Contatti</a></li>
+
+            <li><a href="../faq.html">FAQ</a></li>
+            <li><a href="../privacy.html">Privacy & Note Legali</a></li>
+        </ul>
+    </nav>
+    <div id="drawer-backdrop" class="backdrop"></div>
+
+    <!-- Contenuto della Categoria: Elenco Interattivo -->
+    <main class="home-content" style="padding: 20px;">
+        <section class="category-events-section">
+            <div id="categoria-eventi-container" class="events-list">
+                <!-- Inseriti via JS -->
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<!-- Script principali con percorsi corretti -->
+<script type="module" src="../js/app.js"></script>
+<script type="module" src="food.js"></script>
+
+</body>
+</html>

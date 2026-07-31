@@ -1,0 +1,122 @@
+/* ==========================================================
+   STRUTTURA PAGINA, SFONDO, FILTRI E MENU LATERALE
+   ========================================================== */
+
+/* Sfondo generale della pagina calendario con l'immagine coordinata */
+body.calendar-page-body {
+    margin: 0;
+    background-color: #0b0614;
+    font-family: inherit;
+    color: #ffffff;
+    min-height: 100vh;
+    position: relative;
+}
+
+.site-background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('../../images/sfondo-festmap.webp') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -2;
+}
+
+body.calendar-page-body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(15, 10, 30, 0.88) 0%, rgba(30, 15, 55, 0.82) 100%);
+    z-index: -1;
+}
+
+/* --- Navigazione Anno / Mese (Precedente / Successivo) --- */
+.calendar-header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.calendar-header-nav button {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.calendar-header-nav button:hover {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+}
+
+.calendar-header-nav h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #ffffff;
+}
+
+/* --- Barra dei Filtri Calendario --- */
+.filters-calendar-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: rgba(25, 20, 45, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    align-items: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.filters-calendar-bar select,
+.filters-calendar-bar input {
+    padding: 10px 14px;
+    background: rgba(15, 10, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 140px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filters-calendar-bar select option {
+    background: #0a171e;
+    color: #ffffff;
+}
+
+.filters-calendar-bar select:focus,
+.filters-calendar-bar input:focus {
+    border-color: #ff416c;
+}
+
+/* --- Forzatura Apertura Menu Laterale (Drawer) --- */
+#side-drawer.active {
+    transform: translateX(0) !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+#drawer-backdrop.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}

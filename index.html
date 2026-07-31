@@ -1,169 +1,262 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <link rel="icon" type="image/png" href="/Favicon SDC.ico">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>FestMap - Lavori in Corso | Seeker D. Code</title>
-    <meta name="description" content="L'applicazione FestMap è attualmente in fase di sviluppo. Scopri in anteprima la mappa interattiva dedicata a sagre, fiere del fumetto e folklore in Italia.">
-    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
 
-    <script>
-    // Controllo modalità sviluppatore per AdSense
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('developer') === 'true') {
-        sessionStorage.setItem('devMode', 'true');
-    }
-    const isDeveloper = sessionStorage.getItem('devMode') === 'true';
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4A148C">
+    <!-- Base (comune) -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-menu.css">
+    <link rel="stylesheet" href="css/style-pc.css">
+     <!-- Stile dedicato allo Splash Screen -->
+    <link rel="stylesheet" href="css/Style-SplashScreen.css">
 
-    if (window.location.protocol !== 'file:' && !isDeveloper) {
-        const adsenseScript = document.createElement('script');
-        adsenseScript.async = true;
-        adsenseScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9544811471414500";
-        adsenseScript.crossOrigin = "anonymous";
-        document.head.appendChild(adsenseScript);
-    }
-    </script>
+    <!-- Mobile -->
+    <link rel="stylesheet" href="css/mobile/style-mobile.css">
+    <link rel="stylesheet" href="css/mobile/style-mobile-index.css">
+    <link rel="stylesheet" href="css/mobile/style-mobile-menu.css">
+    <link rel="stylesheet" href="css/mobile/style-mobyle-splashscreen.css">
+
+
+
+
+
+    <title>FestMap - Accendi i tuoi weekend</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 </head>
 <body>
 
-    <header>
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <img src="../SD.C - logo orizzontale.png" alt="Seeker D. Code" class="logo-img"
-                 style="height: auto; object-fit: contain;
-                        filter: drop-shadow(15px 15px 0px #fff) 
-                                drop-shadow(-15px -15px 0px #fff) 
-                                drop-shadow(15px -15px 0px #fff) 
-                                drop-shadow(-15px 15px 0px #fff) 
-                                drop-shadow(0px 0px 10px rgba(255,255,255,1));">
+<!-- Splash Screen Iniziale con Mappa e Segnalini Dinamici -->
+<div id="splash-screen">
+    <!-- Header dello Splash -->
+    <div class="splash-header">
+        <div class="header-left-group">
+            <div class="splash-logo-container">
+                <img src="images/logo FM.png" alt="FestMap Logo" class="splash-logo-top">
+            </div>
+            <div class="splash-header-text">
+                <p class="splash-tagline">Accendi i tuoi weekend.<br>Tutti gli eventi in Italia a tua disposizione.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Centro e Bottom dello Splash -->
+    <div class="splash-center-content">
+        <div class="italy-map-wrapper">
+            <img src="images/Italia.webp" alt="Mappa Italia" class="italy-map-img">
+            <div id="pins-container">
+            <!-- 32 Segnalini WEBP -->
+            <img src="images/food.webp" class="map-pin pin-1 anim-food" alt="Pin Food">
+            <img src="images/comics.webp" class="map-pin pin-2 anim-comics" alt="Pin Comics">
+            <img src="images/folk.webp" class="map-pin pin-3 anim-folk" alt="Pin Folk">
+            <img src="images/wild.webp" class="map-pin pin-4 anim-wild" alt="Pin Wild">
+            <img src="images/food.webp" class="map-pin pin-5 anim-food" alt="Pin Food">
+            <img src="images/wild.webp" class="map-pin pin-6 anim-wild" alt="Pin Wild">
+            <img src="images/comics.webp" class="map-pin pin-7 anim-comics" alt="Pin Comics">
+            <img src="images/food.webp" class="map-pin pin-8 anim-food" alt="Pin Food">
+            <img src="images/wild.webp" class="map-pin pin-9 anim-wild" alt="Pin Wild">
+            <img src="images/folk.webp" class="map-pin pin-10 anim-folk" alt="Pin Folk">
+            <img src="images/wild.webp" class="map-pin pin-11 anim-wild" alt="Pin Wild">
+            <img src="images/comics.webp" class="map-pin pin-12 anim-comics" alt="Pin Comics">
+            <img src="images/wild.webp" class="map-pin pin-13 anim-wild" alt="Pin Wild">
+            <img src="images/food.webp" class="map-pin pin-14 anim-food" alt="Pin Food">
+            <img src="images/food.webp" class="map-pin pin-15 anim-food" alt="Pin Food">
+            <img src="images/wild.webp" class="map-pin pin-16 anim-wild" alt="Pin Wild">
+            <img src="images/wild.webp" class="map-pin pin-17 anim-wild" alt="Pin Wild">
+            <img src="images/comics.webp" class="map-pin pin-18 anim-comics" alt="Pin Comics">
+            <img src="images/wild.webp" class="map-pin pin-19 anim-wild" alt="Pin Wild">
+            <img src="images/food.webp" class="map-pin pin-20 anim-food" alt="Pin Food">
+            <img src="images/comics.webp" class="map-pin pin-21 anim-comics" alt="Pin Comics">
+            <img src="images/food.webp" class="map-pin pin-22 anim-food" alt="Pin Food">
+            <img src="images/folk.webp" class="map-pin pin-23 anim-folk" alt="Pin Folk">
+            <img src="images/wild.webp" class="map-pin pin-24 anim-wild" alt="Pin Wild">
+            <img src="images/comics.webp" class="map-pin pin-25 anim-comics" alt="Pin Comics">
+            <img src="images/wild.webp" class="map-pin pin-26 anim-wild" alt="Pin Wild">
+            <img src="images/folk.webp" class="map-pin pin-27 anim-folk" alt="Pin Folk">
+            <img src="images/food.webp" class="map-pin pin-28 anim-food" alt="Pin Food">
+            <img src="images/food.webp" class="map-pin pin-29 anim-food" alt="Pin Food">
+            <img src="images/wild.webp" class="map-pin pin-30 anim-wild" alt="Pin Wild">
+            <img src="images/comics.webp" class="map-pin pin-31 anim-comics" alt="Pin Comics">
+            <img src="images/folk.webp" class="map-pin pin-32 anim-folk" alt="Pin Folk">
+            </div>
+        </div>
+    </div>
+
+    <div class="splash-bottom-content">
+        <div class="loader-status-wrapper">
+            <div id="loader-icon-container"></div>
+            <div id="loader-status-text" class="loader-text">Ricerca eventi in Italia...</div>
+        </div>
+        <div class="loader-container">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- INTERFACCIA PRINCIPALE DELL'APP (HOME) -->
+<div id="app" class="main-app-container">
+
+    <!-- HEADER FISSO -->
+    <header class="app-header" style="position: relative;">
+        <button id="menu-toggle-btn" class="icon-btn" aria-label="Menu">
+            <span>☰</span>
+        </button>
+
+        <nav class="bottom-nav inline-nav-links">
+            <a href="index.html" class="nav-item active">
+                <img src="images/logo FM.png" alt="Logo" class="home-logo">
+                <span>Home</span>
+            </a>
+            <a href="map.html" class="nav-item">
+                <span class="nav-icon">🗺️</span>
+                <span class="nav-label">Mappa</span>
+            </a>
+            <a href="calendario.html" class="nav-item">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Calendario</span>
+            </a>
+            <a href="preferiti.html" class="nav-item">
+                <span class="nav-icon">❤️</span>
+                <span class="nav-label">Preferiti</span>
+            </a>
+        </nav>
+
+        <div class="header-right-space"></div>
+
+        <!-- Contatore Eventi Visualizzati -->
+        <div id="event-counter-badge" style="position: absolute; right: 15px; top: 12px; background: rgba(0, 0, 0, 0.06); padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; color: #444; display: inline-block;">
+            Eventi: <span id="counter-value">0</span>
         </div>
     </header>
 
-    <nav class="main-nav" style="position: relative; z-index: 10; display: flex; flex-wrap: wrap; justify-content: flex-start; align-items: center; gap: 15px; padding: 10px;">
-        <a href="../index.html">Home</a>
-        <a href="../about.html">About Us</a> 
-        
-        <div class="nav-dropdown">
-            <button class="dropdown-trigger">Web Apps & Strumenti <span class="arrow">▾</span></button>
-            <div class="dropdown-menu">
-                <a href="../apps.html">Catalogo App</a>
-                <a href="../apps/festmap-guida.html">FestMap (Mappa Eventi)</a>
-                <a href="../apps/live-speech-text-guida.html">Live Speech Text (trascrizione online)</a>
-                <a href="../cos-e-pwa.html">Cos'è una PWA</a>
-            </div>
+    <!-- BARRA DI RICERCA E FILTRI -->
+    <section class="search-section">
+        <div class="search-bar-wrapper" style="display: flex; gap: 10px; align-items: center;">
+            <input type="text" id="search-input" placeholder="Cerca evento, città, regione..." style="flex: 1;">
+            <button id="advanced-search-toggle" class="btn-filter">Filtri</button>
+            <select id="sort-order-select" class="sort-dropdown">
+                <option value="asc">Data Crescente</option>
+                <option value="desc">Data Decrescente</option>
+            </select>
         </div>
 
-        <a href="../blog.html">Blog & Guide</a>
-        <a href="../faq.html">FAQ & Supporto</a>
-        <a href="../supporto-page/supporto.html">Come Supportarci</a>
-        <a href="../contatti.html">Contatti</a>
+        <div id="advanced-filters-panel" class="filters-panel hidden">
+            <div class="filter-group">
+                <label>Categoria:</label>
+                <select id="filter-tipo">
+                    <option value="">Tutti i tipi</option>
+                    <option value="wild">Wild</option>
+                    <option value="comics">Comics</option>
+                    <option value="food">Food</option>
+                    <option value="folk">Folk</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Mese:</label>
+                <select id="filter-mese"></select>
+            </div>
+            <div class="filter-group">
+                <label>Data Specifica:</label>
+                <input type="date" id="filter-data">
+            </div>
+            <div class="filter-group range-group">
+                <label>Periodo (Da - A):</label>
+                <input type="date" id="filter-da">
+                <input type="date" id="filter-a">
+            </div>
+            <div class="filter-group">
+                <label>Località:</label>
+                <input type="text" id="filter-citta" placeholder="Città">
+                <input type="text" id="filter-provincia" placeholder="Provincia (es. SI)">
+                <input type="text" id="filter-regione" placeholder="Regione">
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button id="apply-filters-btn" style="flex: 1;" class="btn-primary">Applica Filtri</button>
+                <button id="reset-filters-btn" class="btn-secondary" style="flex: 1; background: #eee; color: #333; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">Resetta filtri</button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Categorie Rapide (Visibili SOLO in Home) -->
+    <section class="home-categories-bar" style="padding: 10px 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <a href="eventi/wild.html" class="category-chip" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 20px; text-decoration: none; color: #333; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <img src="images/wild.webp" alt="Wild" style="width: 34px; height: 34px; object-fit: contain;">
+            <span>Wild Festivals</span>
+        </a>
+        <a href="eventi/comics.html" class="category-chip" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 20px; text-decoration: none; color: #333; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <img src="images/comics.webp" alt="Comics" style="width: 34px; height: 34px; object-fit: contain;">
+            <span>Comics & Cosplay</span>
+        </a>
+        <a href="eventi/food.html" class="category-chip" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 20px; text-decoration: none; color: #333; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <img src="images/food.webp" alt="Food" style="width: 34px; height: 34px; object-fit: contain;">
+            <span>Food & Good</span>
+        </a>
+        <a href="eventi/folk.html" class="category-chip" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 20px; text-decoration: none; color: #333; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <img src="images/folk.webp" alt="Folk" style="width: 24px; height: 24px; object-fit: contain;">
+            <span>Folklore & Tradizioni</span>
+        </a>
+    </section>
+
+
+
+    <!-- MENU LATERALE (DRAWER) -->
+    <nav id="side-drawer" class="drawer">
+        <div class="drawer-header">
+            <h3>Menu</h3>
+            <button id="drawer-close-btn">&times;</button>
+        </div>
+        <ul class="drawer-links">
+            <li><a href="eventi/wild.html">Wild Festivals</a></li>
+            <li><a href="eventi/comics.html">Comics & Cosplay</a></li>
+            <li><a href="eventi/food.html">Food & Good</a></li>
+            <li><a href="eventi/folk.html">Folklore & Tradizioni</a></li>
+            <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+            <li><a href="contatti.html" style="font-weight: bold !important; color: #ff6b6b !important; text-decoration: underline !important;">Segnala un Evento & Contatti</a></li>            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy & Note Legali</a></li>
+        </ul>
     </nav>
+    <div id="drawer-backdrop" class="backdrop"></div>
 
-    <div class="main-layout">
-        
-        <aside class="ads-sidebar" id="ad-top">
-            <ins class="adsbygoogle ads-ibrida"
-                style="display:block;"
-                data-ad-client="ca-pub-9544811471414500"
-                data-ad-slot="7833202644"
-                data-ad-format="auto"
-                data-full-width-responsive="false">
-            </ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </aside>
-
-        <main class="container" style="max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; line-height: 1.7;">
-            
-            <div style="margin-bottom: 20px;">
-                <span style="background-color: #ffd166; color: #000; padding: 6px 15px; font-weight: bold; border-radius: 20px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;">
-                    🛠️ In Fase di Sviluppo
-                </span>
+    <!-- Contenuto della Home -->
+    <main class="home-content">
+        <!-- Sezione Primi 2 Eventi in Primo Piano -->
+        <section class="featured-events-section">
+            <div class="section-header-row" style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="titolo-sezione-preferiti" style="cursor: pointer; user-select: none; margin: 0;">Preferiti ▾</h3>
             </div>
 
-            <h1 style="font-size: 2.6rem; color: var(--text-dark); margin-bottom: 15px; line-height: 1.2;">
-                FestMap: Stiamo preparando qualcosa di grande
-            </h1>
-            
-            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px auto;">
-                Il codice è sulla scrivania, i database geografici si stanno popolando. La mappa definitiva degli eventi italiani sta per arrivare sul tuo browser.
-            </p>
-
-            <div style="text-align: left; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); margin-bottom: 40px;">
-                <h2 style="font-size: 1.5rem; color: var(--text-dark); margin-bottom: 15px;">Cosa sarà FestMap?</h2>
-                <p style="margin-bottom: 15px;">
-                    FestMap è una <strong>Progressive Web App (PWA)</strong> cross-platform progettata per aggregare, mappare e rendere facilmente consultabili le manifestazioni tradizionali e alternative su tutto il territorio nazionale. Grazie alle performance del framework Flutter e alla leggerezza del codice compilato per il web, potrai cercare la tua prossima destinazione direttamente dalla mappa, filtrando i risultati in tempo reale anche quando la connessione mobile è limitata.
-                </p>
-                <p style="margin-bottom: 20px;">
-                    Stiamo strutturando il database interno per dividere minuziosamente ogni appuntamento in quattro grandi macro-aree tematiche:
-                </p>
-                
-                <ul style="padding-left: 20px; margin-bottom: 0;">
-                    <li style="margin-bottom: 8px;"><strong>🍲 Food:</strong> La rotta dedicata alle sagre enogastronomiche e alla riscoperta delle tradizioni culinarie locali.</li>
-                    <li style="margin-bottom: 8px;"><strong>🎭 Comics:</strong> Spazio alla cultura nerd, raduni cosplay, fiere del fumetto e festival del gioco.</li>
-                    <li style="margin-bottom: 8px;"><strong>🏰 Folk:</strong> Un tuffo nel passato tra rievocazioni storiche, palii medievali e concerti di musica celtica e folkloristica.</li>
-                    <li style="margin-bottom: 0;"><strong>🌲 Wild:</strong> Per gli spiriti liberi, con raduni alternativi, festival nella natura e manifestazioni decisamente fuori dagli schemi classici.</li>
-                </ul>
+            <div id="preferiti-content-wrapper">
+                <div id="primi-eventi-container" class="events-list top"></div>
             </div>
+        </section>
 
-            <p style="font-size: 1rem; color: var(--text-dark); font-weight: 600;">
-                Vuoi saperne di più sulla tecnologia che stiamo usando?
-            </p>
-            <div style="margin-top: 15px; margin-bottom: 20px;">
-                <a href="../blog/perche-scegliere-pwa.html" style="color: var(--accent-sky); text-decoration: underline; font-weight: bold; margin: 0 15px;">Leggi l'articolo sulle PWA</a>
-                <a href="../blog/mappe-interattive-flutter.html" style="color: var(--accent-sky); text-decoration: underline; font-weight: bold; margin: 0 15px;">Dietro le quinte dello sviluppo in Flutter</a>
+        <!-- Sezione Eventi Successivi -->
+        <section class="upcoming-events-section">
+            <h3>Prossimi Eventi</h3>
+            <div id="anteprima-eventi" class="events-list">
+                <!-- Inseriti via JS -->
             </div>
+        </section>
+    </main>
 
-        </main>
-    </div>
+</div>
 
-    <div class="ads-banner" id="ad-bottom">
-        <ins class="adsbygoogle"
-            style="display:block;"
-            data-ad-client="ca-pub-9544811471414500"
-            data-ad-slot="1393962976"
-            data-ad-format="horizontal"
-            data-full-width-responsive="false">
-        </ins> 
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
-    <footer>
-        <p style="margin-bottom: 10px;">
-            <a href="../Privacy & Cookie Policy.html" style="color: #000000; text-decoration: underline; font-weight: bold;">Privacy & Cookie Policy</a>  |  
-            <a href="../note-legali.html" style="color: #000000; text-decoration: underline; font-weight: bold;">Note Legali</a>  |  
-            <a href="../contatti.html" style="color: #000000; text-decoration: underline; font-weight: bold;">CONTATTI</a>
-        </p>
-        
-        <p style="margin-bottom: 15px;">© 2026 Seeker d. Code. • Tutti i diritti riservati.</p>
-        
-        <div id="google_translate_element"></div>
-
-        <script type="text/javascript">
-            if (window.location.protocol !== 'file:') {
-                function googleTranslateElementInit() {
-                    new google.translate.TranslateElement({
-                        pageLanguage: 'it',
-                        includedLanguages: 'en,es,fr,zh-CN,de,ja,ru',
-                        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                    }, 'google_translate_element');
-                }
-                
-                const translateScript = document.createElement('script');
-                translateScript.type = 'text/javascript';
-                translateScript.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-                document.head.appendChild(translateScript);
-            }
-        </script>
-    </footer>
+<script type="module" src="js/app.js"></script>
+<script type="module" src="js/index.js"></script>
+<script src="js/animazione_pin.js"></script>
 
 </body>
 </html>

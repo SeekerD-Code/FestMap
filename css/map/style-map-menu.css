@@ -1,0 +1,78 @@
+/* ==========================================================
+   STILI MAPPA - MENU, BARRA SUPERIORE E FILTRI
+   ========================================================== */
+
+body.map-page {
+    margin: 0;
+    overflow: hidden;
+    background: #0f0a1e;
+    font-family: sans-serif;
+    color: #ffffff;
+}
+
+/* Header Fisso */
+.app-header {
+    position: relative;
+    z-index: 1000;
+    background: rgba(15, 10, 30, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-header .icon-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-size: 1.5rem;
+}
+
+/* Pannello filtri e ricerca sopra la mappa (abbassato per evitare sovrapposizioni) */
+#map-filters-panel {
+    position: absolute;
+    top: 87px;
+    left: 15px;
+    right: 15px;
+    z-index: 999;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: rgba(15, 10, 30, 0.85);
+    padding: 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#map-filters-panel input[type="text"],
+#map-filters-panel select {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(20, 15, 35, 0.9);
+    color: white;
+    font-size: 0.9rem;
+}
+
+#filter-testo {
+    flex: 1;
+    min-width: 150px;
+}
+
+#filter-citta {
+    width: 120px;
+}
+
+#filter-provincia {
+    width: 100px;
+}
+
+#filter-regione {
+    width: 110px;
+}
+
+.drawer-divider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 15px 0;
+}

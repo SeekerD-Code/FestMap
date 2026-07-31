@@ -1,0 +1,66 @@
+
+/* Nasconde l'icona della categoria nelle card all'interno delle pagine della cartella eventi */
+    .card-category-badge-icon,
+    img[src*="images/"][alt="categoria"],
+    img[src*="comics.webp"],
+    img[src*="food.webp"],
+    img[src*="folk.webp"],
+    img[src*="wild.webp"] {
+        display: none !important;
+    }
+
+
+    /* --- 2. Riduzione altezza e compattamento delle card --- */
+
+/* Riduciamo i margini interni del contenitore principale della card */
+.event-card,
+.events-list .event-card,
+.card-content-wrapper {
+    padding: 0px 10px !important;
+    min-height: auto !important;
+    gap: 20px !important; /* Riduce lo spazio tra l'immagine e il testo se usi un layout flex */
+}
+
+/* Ridimensioniamo l'immagine della card per abbassarla */
+.card-img-container {
+    width: 70px !important;
+    height: 70px !important;
+}
+
+.card-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Compatiamo il titolo (che nell'HTML è un h5 con classe .card-title) */
+.event-card .card-title,
+.events-list .card-title,
+h5.card-title {
+    font-size: 0.95rem !important;
+    margin: 0 0 2px 0 !important;
+    line-height: 1.2 !important;
+}
+
+/* Compatiamo le date */
+.event-card .card-date,
+.events-list .card-date {
+    font-size: 0.85rem !important;
+    margin: 0 0 4px 0 !important;
+    line-height: 1.1 !important;
+}
+
+/* Riduciamo lo spazio del blocco azioni/pulsanti sul fondo */
+.event-card .card-actions,
+.events-list .card-actions {
+    margin-top: 4px !important;
+    gap: 6px !important;
+}
+
+/* Riduciamo l'altezza dei bottoni interni se necessario */
+.event-card .card-actions button,
+.events-list .card-actions .btn,
+.events-list .card-actions .btn-map {
+    padding: 4px 8px !important;
+    font-size: 0.85rem !important;
+}

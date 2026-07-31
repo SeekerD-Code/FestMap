@@ -1,0 +1,58 @@
+/* ==========================================================
+   STILI CORRETTI PER LA MAPPA LEAFLET E INTERFACCIA FESTMAP
+   ========================================================== */
+
+/* Protezione layout Mappa */
+body.map-page {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    background-image: none !important;
+}
+
+/* Mappa contenuta nel suo box a schermo intero dinamico */
+#map {
+    width: 100% !important;
+    height: calc(100vh - 60px) !important;
+    border-radius: 0;
+    z-index: 1 !important;
+    position: relative;
+}
+
+/* --- Stili per i Pin PNG su Leaflet --- */
+.marker-png-container {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75px !important;
+    height: 75px !important;
+}
+
+.marker-png-container .pin-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.marker-png-container img {
+    width: 75px !important;
+    height: 75px !important;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.4));
+    transition: transform 0.2s ease-in-out;
+}
+
+.marker-png-container:hover img {
+    transform: scale(1.25) translateY(-4px);
+}
+
+.filters-calendar-bar {
+    position: relative;
+    z-index: 1050;
+}
