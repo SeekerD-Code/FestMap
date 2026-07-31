@@ -88,7 +88,11 @@ export function creaCardEvento(evento, isPassato = false) {
                         <button type="button" class="btn btn-secondary btn-apri-dettaglio" data-evento-b64='${btoa(encodeURIComponent(JSON.stringify(evento)))}'>
                             🔍 Dettagli
                         </button>
-                        <button class="btn-map" onclick="window.location.href='map.html?lat=${evento.latitudine}&lng=${evento.longitudine}'" title="Mostra sulla mappa">
+                        <button class="btn-map" onclick="
+                            const isInEventi = window.location.pathname.includes('/eventi/');
+                            const basePath = isInEventi ? '../map.html' : 'map.html';
+                            window.location.href = basePath + '?lat=${evento.latitudine}&lng=${evento.longitudine}';
+                        " title="Mostra sulla mappa">
                             🚩 Mappa
                         </button>
                     </div>
