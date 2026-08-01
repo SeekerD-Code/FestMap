@@ -49,10 +49,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
 export function apriModaleDettagli(ev) {
     localStorage.setItem('eventoSelezionatoDettaglio', JSON.stringify(ev));
-    
+
     // Controlla se la pagina corrente è dentro la cartella 'eventi'
     const isInEventi = window.location.pathname.includes('/eventi/');
     const targetUrl = isInEventi ? '../dati-evento.html' : 'dati-evento.html';
-    
+
     window.location.href = targetUrl;
 }
+
+// --- Gestione Unificata Installazione PWA (Desktop & Mobile) ---
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Impedisce al browser di mostrare il banner automatico
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Mostra il pulsante PC se siamo su desktop
+    const pcBtn = document.getElementById('pwa-install-pc-btn');
+    if (pcBtn) {
+        pcBtn.style.display = 'flex';
+    }
+
+    // Mostra il quadratino mobile se siamo su smartphone
+    const mobileFloatBtn = document.getElementById('pwa-install-mobile-float');
+    if (mobileFloatBtn) {
+        mobileFloatBtn.style.display = 'flex';
+    }
+});
+
+// Funzione comune per attivare il prompt
+async function triggerPwaInstall() {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+
+    if (outcome === 'accepted') {
+        console.log('Utente ha installato la PWA');
+    }
+
+    deferredPrompt = null;
+    hideAllInstallButtons();
+}
+
+function hideAllInstallButtons() {
+    const pcBtn = document.getElementById('pwa-install-pc-btn');
+    if (pcBtn) pcBtn.style.display = 'none';
+
+    const mobileFloatBtn = document.getElementById('pwa-install-mobile-float');
+    if (mobileFloatBtn) mobileFloatBtn.style.display = 'none';
+}
+
+// Associa i click ai rispettivi pulsanti
+document.addEventListener('click', (e) => {
+    if (e.target.closest('#pwa-install-pc-btn') || e.target.closest('#pwa-install-mobile-float')) {
+        triggerPwaInstall();
+    }
+});
+
+window.addEventListener('appinstalled', () => {
+    console.log('PWA installata correttamente!');
+    hideAllInstallButtons();
+    deferredPrompt = null;
+});
