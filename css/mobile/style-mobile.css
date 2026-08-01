@@ -15,4 +15,43 @@
         padding: 0 10px;
         box-sizing: border-box;
     }
+
+    /* --- Quadratino Fluttuante PWA (Smartphone) --- */
+    .pwa-mobile-float-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #4A148C;
+        color: white;
+        border: none;
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        box-shadow: 0 4px 12px rgba(74, 20, 140, 0.4);
+        cursor: pointer;
+        z-index: 999;
+        transition: transform 0.2s, background 0.2s;
+    }
+
+    .pwa-mobile-float-btn .float-icon {
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+
+    .pwa-mobile-float-btn .float-text {
+        font-size: 0.55rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    .pwa-mobile-float-btn:active {
+        transform: scale(0.92);
+        background: #6a1bb2;
+    }
 }
