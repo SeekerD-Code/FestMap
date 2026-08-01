@@ -120,4 +120,41 @@
         margin-left: 5px;
         margin-right: 5px;
     }
+
+    .home-categories-bar {
+        justify-content: center; /* Centra gli elementi su mobile */
+        gap: 6px;
+        padding: 8px 10px;
+    }
+
+    /* Pulsanti/chip leggermente ridotti su mobile */
+    .category-chip {
+        padding: 6px 10px;
+        font-size: 0.82rem;
+        border-radius: 16px;
+    }
+
+    .category-chip .chip-img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .category-chip .folk-icon-fix {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Annulla il "margin-left: auto" di PC e fa andare il pulsante sotto */
+    .btn-segnala-chip {
+        margin-left: 0 !important;
+        width: 100%; /* Opzionale: lo fa estendere o lo centra */
+        justify-content: center;
+        margin-top: 4px;
+        background: #ff6b6b !important;
+        color: white !important;
+    }
+
+    .btn-segnala-chip span {
+        color: white !important;
+    }
 }
