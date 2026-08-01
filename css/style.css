@@ -340,3 +340,57 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 2px #000000;
 }
+
+/* =================================================================
+   HOME - BARRA CATEGORIE E PULSANTE SEGNALA EVENTO
+   ================================================================ */
+
+/* Stile base desktop per la barra categorie */
+.home-categories-bar {
+    padding: 10px 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start; /* Di default allinea a sinistra su PC */
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+/* Stile comune dei chip */
+.category-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.category-chip .chip-img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.category-chip .folk-icon-fix {
+    width: 24px;
+    height: 24px;
+}
+
+/* Spinge il pulsante "Segnala Evento" verso il bordo destro su PC */
+.btn-segnala-chip {
+    margin-left: auto;
+    background: #fff0f0 !important;
+    border-color: #ff6b6b !important;
+    color: #d93838 !important;
+    font-weight: 600;
+}
+
+.btn-segnala-chip .chip-icon-text {
+    font-size: 1.1rem;
+}
