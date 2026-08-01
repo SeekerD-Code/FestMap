@@ -26,8 +26,8 @@
     <link rel="stylesheet" href="css/mobile/style-mobyle-splashscreen.css">
 
 
-
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
 
     <title>FestMap - Accendi i tuoi weekend</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
@@ -190,23 +190,28 @@
     </section>
 
 
-    <!-- Categorie Rapide (Visibili SOLO in Home) -->
-    <section class="home-categories-bar" style="padding: 10px 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-        <a href="eventi/wild.html" class="category-chip" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 20px; text-decoration: none; color: #333; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <img src="images/wild.webp" alt="Wild" style="width: 34px; height: 34px; object-fit: contain;">
-            <span>Wild Festivals</span>
+    <!-- Categorie Rapide e Pulsante Segnalazione (Visibili SOLO in Home) -->
+    <section class="home-categories-bar">
+        <a href="eventi/comics.html" class="category-chip">
+            <img src="images/comics.webp" alt="Comics" class="chip-img">
+            <span>Comics & Game</span>
         </a>
-        <a href="eventi/comics.html" class="category-chip" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 20px; text-decoration: none; color: #333; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <img src="images/comics.webp" alt="Comics" style="width: 34px; height: 34px; object-fit: contain;">
-            <span>Comics & Cosplay</span>
-        </a>
-        <a href="eventi/food.html" class="category-chip" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 20px; text-decoration: none; color: #333; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <img src="images/food.webp" alt="Food" style="width: 34px; height: 34px; object-fit: contain;">
+        <a href="eventi/food.html" class="category-chip">
+            <img src="images/food.webp" alt="Food" class="chip-img">
             <span>Food & Good</span>
         </a>
-        <a href="eventi/folk.html" class="category-chip" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 20px; text-decoration: none; color: #333; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <img src="images/folk.webp" alt="Folk" style="width: 24px; height: 24px; object-fit: contain;">
-            <span>Folklore & Tradizioni</span>
+        <a href="eventi/folk.html" class="category-chip">
+            <img src="images/folk.webp" alt="Folk" class="chip-img folk-icon-fix">
+            <span>Folk & Tradizioni</span>
+        </a>
+        <a href="eventi/wild.html" class="category-chip">
+            <img src="images/wild.webp" alt="Wild" class="chip-img">
+            <span>Wild Festivals</span>
+        </a>
+        <!-- Pulsante Segnala Evento integrato nella barra -->
+        <a href="contatti.html" class="category-chip btn-segnala-chip">
+            <span class="chip-icon-text">➕</span>
+            <span>Segnalaci un Evento</span>
         </a>
     </section>
 
