@@ -133,10 +133,17 @@
 
         <div class="header-right-space"></div>
 
+        <!-- Pulsante Installa PWA per PC (visibile solo su desktop tramite CSS) -->
+        <button id="pwa-install-pc-btn" class="pwa-desktop-btn" style="display: none;" title="Installa FestMap sul tuo PC">
+            💻 Installa App
+        </button>
+
         <!-- Contatore Eventi Visualizzati -->
         <div id="event-counter-badge" style="position: absolute; right: 15px; top: 12px; background: rgba(0, 0, 0, 0.06); padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; color: #444; display: inline-block;">
             Eventi: <span id="counter-value">0</span>
         </div>
+
+
     </header>
 
     <!-- BARRA DI RICERCA E FILTRI -->
@@ -256,6 +263,12 @@
             </div>
         </section>
     </main>
+
+    <!-- Quadratino Fluttuante PWA per Smartphone (visibile solo su mobile tramite CSS) -->
+    <button id="pwa-install-mobile-float" class="pwa-mobile-float-btn" style="display: none;" aria-label="Installa App">
+        <span class="float-icon">📥</span>
+        <span class="float-text">Installa App</span>
+    </button>
 
 </div>
 
