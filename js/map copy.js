@@ -2,39 +2,16 @@ import { fetchEventi } from './data-fetcher.js';
 import { apriModaleDettagli } from './app.js';
 
 let tuttiGliEventiCache = [];
-//let markerLayerGroup = L.layerGroup();
-let markerLayerGroup = L.markerClusterGroup({
-    maxClusterRadius: 50,
-    spiderfyOnMaxZoom: true,
-    showCoverageOnHover: false
-});
+let markerLayerGroup = L.layerGroup();
 
 // Inizializzazione Mappa Leaflet
 const map = L.map('map', { zoomControl: false }).setView([41.8719, 12.5674], 6);
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-// Tile layer pulito e minimale (mette in risalto i pin e l'Italia)
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20
+// Tile layer standard OpenStreetMap
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
 }).addTo(map);
-
-// --- AGGIUNGI QUI IL TRACCIAMENTO DEI CONFINI ITALIANI ---
-fetch('https://raw.githubusercontent.com/opengeohub/spatial-tiler/main/data/italy_boundary.geojson')
-    .then(response => response.json())
-    .then(data => {
-        L.geoJSON(data, {
-            style: {
-                color: '#4A148C',      // Colore del bordo (usa il tuo viola tematico)
-                weight: 2,             // Spessore del bordo
-                opacity: 0.8,
-                fillColor: '#000000',
-                fillOpacity: 0.02      // Un velo leggerissimo all'interno
-            }
-        }).addTo(map);
-    })
-    .catch(err => console.log("Confini caricati offline o errore di rete", err));
 
 markerLayerGroup.addTo(map);
 
@@ -304,23 +281,15 @@ function mostraMarkerFiltrati(eventi) {
         const primoEvento = eventiSulLuogo[0];
         const percorsoPng = getPngCategoria(primoEvento.categoria || primoEvento.tipo);
 
-        const catText = (primoEvento.categoria || primoEvento.tipo || '').toLowerCase();
-        const isFood = catText.includes('food') || catText.includes('sagra') || catText.includes('cibo');
-
-        const classNameContainer = isFood ? 'marker-png-container marker-food' : 'marker-png-container';
-        const size = isFood ? 70 : 56; // Più grande per il food (es. 70px invece di 56px)
-        const anchor = size / 2;
-
         const customIcon = L.divIcon({
-            className: classNameContainer,
+            className: 'marker-png-container',
             html: `<div class="pin-inner">
                         <img src="${percorsoPng}" alt="${primoEvento.categoria || 'evento'}">
                    </div>`,
-            iconSize: [size, size],
-            iconAnchor: [anchor, anchor],
-            popupAnchor: [0, -anchor]
+            iconSize: [56, 56],
+            iconAnchor: [28, 28],
+            popupAnchor: [0, -28]
         });
-        // --------------------
 
         const urlItinerario = `https://www.google.com/maps/dir/?api=1&destination=${primoEvento.latitudineParsed},${primoEvento.longitudineParsed}&travelmode=driving`;
 

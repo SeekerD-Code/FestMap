@@ -40,37 +40,29 @@ export function creaCardEvento(evento, isPassato = false) {
 
     const iconaCategoriaHtml = `<img src="${iconaCategoriaSrc}" alt="categoria" class="card-category-badge-icon">`;
 
-    // --- LOGICA PULIZIA E FORMATTAZIONE DATE NUMERICHE (GG/MM/AAAA) ---
+    // --- LOGICA PULIZIA E FORMATTAZIONE DATE ---
     const pulisciDataIso = (dataStr) => {
         if (!dataStr) return '';
         return dataStr.split('T')[0];
     };
 
-    const formattaInNumerico = (dataIso) => {
+    const formattaInItaliano = (dataIso) => {
         const soloData = pulisciDataIso(dataIso);
         if (!soloData) return '';
         const [anno, mese, giorno] = soloData.split('-');
         if (!anno || !mese || !giorno) return soloData;
-        return `${giorno}/${mese}/${anno}`;
+
+        const dataObj = new Date(anno, mese - 1, giorno);
+        return dataObj.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
     };
 
-    let stringaDate = '';
-    if (evento.intervalliDate && evento.intervalliDate.length > 0) {
-        stringaDate = evento.intervalliDate.map(intervallo => {
-            const inizioNum = formattaInNumerico(intervallo.inizio);
-            const fineNum = formattaInNumerico(intervallo.fine);
-            return (!fineNum || inizioNum === fineNum)
-                ? inizioNum
-                : `dal ${inizioNum} al ${fineNum}`;
-        }).join('<br>');
-    } else {
-        const dataInizioFormatted = formattaInNumerico(evento.data_inizio_grezza || evento.data_inizio || evento.data);
-        const dataFineFormatted = formattaInNumerico(evento.data_fine_grezza);
+    const dataInizioFormatted = formattaInItaliano(evento.data_inizio_grezza || evento.data_inizio || evento.data);
+    const dataFineFormatted = formattaInItaliano(evento.data_fine_grezza);
 
-        stringaDate = (!dataFineFormatted || dataInizioFormatted === dataFineFormatted)
-            ? dataInizioFormatted
-            : `dal ${dataInizioFormatted} al ${dataFineFormatted}`;
-    }
+    // Mette la data di fine a capo con un trattino o un separatore pulito
+    const stringaDate = (!dataFineFormatted || dataInizioFormatted === dataFineFormatted)
+        ? dataInizioFormatted
+        : `${dataInizioFormatted}<br><span class="date-separator">➔ </span> ${dataFineFormatted}`;
 
     const webpCuore = `
         <svg class="cuore-icon" viewBox="0 0 24 24" width="20" height="20">
@@ -92,9 +84,6 @@ export function creaCardEvento(evento, isPassato = false) {
                 <div class="card-info-container">
                     <h5 class="card-title">${evento.nome_rilevato}</h5>
                     <p class="card-date">${stringaDate}</p>
-
-                    ${evento.telefoni ? `<p class="card-phone" style="font-size: 0.85rem; color: #555; margin: 4px 0;">📞 ${evento.telefoni}</p>` : ''}
-
                     <div class="card-actions">
                         <button type="button" class="btn btn-secondary btn-apri-dettaglio" data-evento-b64='${btoa(encodeURIComponent(JSON.stringify(evento)))}'>
                             🔍 Dettagli

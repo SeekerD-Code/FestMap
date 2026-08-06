@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#4A148C">
 
 
     <title>Dettagli Evento - FestMap</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style-mobile.css">
-    <link rel="stylesheet" href="css/style-pc.css" media="(min-width: 768px)">
-    <link rel="stylesheet" href="css/style-menu.css">
-    <link rel="stylesheet" href="css/style-evento.css">
-    
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style-menu.css">
+
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style-menu.css">
+    <link rel="stylesheet" href="./css/style-pc.css">
+    <link rel="stylesheet" href="./css/style-evento.css">
+     <!-- Stile dedicato allo Splash Screen -->
+
+     <!-- Mobile -->
+    <link rel="stylesheet" href="./css/mobile/style-mobile.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-index.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-menu.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-evento.css">
+
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
 
@@ -27,12 +37,12 @@
 
         <nav class="bottom-nav inline-nav-links">
             <a href="index.html" class="nav-item">
-                <img src="images/logo FM.png" alt="Logo" class="home-logo" style="height: 20px;">
+                <img src="./images/logo FM.png" alt="Logo" class="home-logo" style="height: 20px;">
                 <span>Home</span>
             </a>
-            <a href="map.html" class="nav-item">
-                <span class="nav-icon">🗺️</span>
-                <span class="nav-label">Mappa</span>
+            <a href="elenco.html" class="nav-item active">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label">Elenco</span>
             </a>
             <a href="calendario.html" class="nav-item">
                 <span class="nav-icon">📅</span>
@@ -74,7 +84,7 @@
         <div class="dettaglio-top-section">
             <!-- Locandina a sinistra -->
             <div class="dettaglio-locandina-box">
-                <img id="det-locandina" src="images/cosplayersitaliani.webp" alt="Locandina Evento">
+                <img id="det-locandina" src="./images/cosplayersitaliani.webp" alt="Locandina Evento">
             </div>
 
             <!-- Date, indirizzo e recapiti a destra -->
@@ -82,7 +92,7 @@
                 <p>📅 <strong>Date:</strong> <span id="det-date">-</span></p>
                 <p>📍 <strong>Indirizzo/Luogo:</strong> <span id="det-luogo">-</span></p>
                 <p>🏷️ <strong>Categoria:</strong> <span id="det-categoria">-</span></p>
-                <p id="box-telefono" style="display: none;">📞 <strong>Telefono:</strong> <a id="det-telefono" href="#"></a></p>
+                <p id="box-telefono" style="display: none;">📞 <strong>Telefono:</strong> <span id="det-telefono-container"></span></p>
                 <p id="box-email" style="display: none;">✉️ <strong>Email:</strong> <a id="det-email" href="#"></a></p>
 
                 <div style="margin-top: 20px;">
@@ -150,7 +160,7 @@
 
                 // 2. Locandina
                 const imgEl = document.getElementById('det-locandina');
-                imgEl.src = ev.locandina ? ev.locandina : 'images/cosplayersitaliani.webp';
+                imgEl.src = ev.locandina ? ev.locandina : './images/cosplayersitaliani.webp';
 
                 // 3. Date e Indirizzo formattati puliti
                 const dataInizioFormatted = formattaInItaliano(ev.data_inizio_grezza || ev.data_inizio || ev.data);
@@ -162,14 +172,22 @@
                 }
                 document.getElementById('det-date').textContent = stringaDate || 'Data non specificata';
 
-                document.getElementById('det-luogo').textContent = ev.luogo || 'Luogo non specificato';
+                const luogoEl = document.getElementById('det-luogo');
+                const testoLuogo = ev.luogo || 'Luogo non specificato';
+
+                if (ev.latitudine && ev.longitudine && ev.latitudine !== 0 && ev.longitudine !== 0) {
+                    luogoEl.innerHTML = `<a href="../index.html?lat=${ev.latitudine}&lng=${ev.longitudine}" style="color: #007bff; text-decoration: underline;" title="Visualizza sulla mappa">${testoLuogo} 📍</a>`;
+                } else {
+                    luogoEl.textContent = testoLuogo;
+                }
+
                 document.getElementById('det-categoria').textContent = ev.categoria || ev.tipo || 'Generale';
 
-                // 4. Recapiti condizionali
-                if (ev.telefono) {
-                    const telEl = document.getElementById('det-telefono');
-                    telEl.textContent = ev.telefono;
-                    telEl.href = `tel:${ev.telefono}`;
+                // 4. Recapiti condizionali (Usa ev.telefoni al plurale)
+                const telefonoVal = ev.telefoni || ev.telefono;
+                if (telefonoVal) {
+                    const telContainer = document.getElementById('det-telefono-container');
+                    telContainer.innerHTML = `<a href="tel:${telefonoVal}">${telefonoVal}</a>`;
                     document.getElementById('box-telefono').style.display = 'block';
                 }
 

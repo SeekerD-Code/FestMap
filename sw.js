@@ -1,18 +1,37 @@
-const CACHE_NAME = 'festmap-v3';
+const CACHE_NAME = 'festmap-v4';
 const ASSETS = [
     './',
     './index.html',
-    './map.html',
+    './elenco.html',
     './calendario.html',
+    './contatti.html',
+    './dati-evento.html',
+    './mappa-preferiti.html',
+    './preferiti.html',
+    './manifest.json',
+    './favicon.ico',
     './css/style.css',
+    './css/style-menu.css',
+    './css/style-pc.css',
+    './css/Style-SplashScreen.css',
+    './js/animazione_pin.js',
     './js/app.js',
-    './js/index.js',
+    './js/calendario.js',
     './js/data-fetcher.js',
+    './js/filters-utils.js',
+    './js/header-component.js',
+    './js/index.js',
+    './js/map-preferiti.js',
+    './js/map.js',
+    './js/preferiti-handler.js',
+    './js/preferiti.js',
     './js/ui-components.js',
     './images/food.webp',
     './images/folk.webp',
     './images/comics.webp',
-    './images/wild.webp'
+    './images/wild.webp',
+    './images/Italia.webp',
+    './images/logo FM.png'
 ];
 
 // Installazione e cache delle risorse
@@ -36,7 +55,6 @@ self.addEventListener('activate', (e) => {
             );
         })
     );
-    // CORRETTO: clients.claim() con il punto
     return self.clients.claim();
 });
 

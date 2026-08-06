@@ -26,8 +26,7 @@ export function filtraEventi(eventiTotali) {
 
     return eventiTotali.filter(evento => {
         const matchTesto = !testoQuery ||
-            (evento.nome_rilevato && evento.nome_rilevato.toLowerCase().includes(testoQuery)) ||
-            (evento.luogo && evento.luogo.toLowerCase().includes(testoQuery));
+            (evento.nome_rilevato && evento.nome_rilevato.toLowerCase().includes(testoQuery));
 
         const matchTipo = !tipoFiltro ||
             (evento.tipo && evento.tipo.toLowerCase() === tipoFiltro) ||
@@ -51,16 +50,24 @@ export function filtraEventi(eventiTotali) {
         const matchPeriodo = (!daFiltro || (fineStd && fineStd >= daFiltro)) &&
                              (!aFiltro || (inizioStd && inizioStd <= aFiltro));
 
-        // --- FILTRI GEOGRAFICI ROBUSTI E PULITI ---
-        const matchCitta = !cittaFiltro ||
-            (evento.citta && evento.citta.toLowerCase().includes(cittaFiltro));
+        // --- FILTRI GEOGRAFICI RIGOROSI ---
 
-        // Trasformiamo tutto in minuscolo e rimuoviamo spazi per un confronto blindato
+        // Isoliamo la città presa esclusivamente dalla colonna/proprietà dedicata (es. evento.citta)
+        const cittaEvento = evento.citta ? evento.citta.toLowerCase().trim() : '';
+
+        // Verifica rigorosa: la città deve corrispondere esattamente o iniziare con la parola cercata
+        // seguita da uno spazio o fine stringa (es. "Roma" trova "Roma" ma NON "Romagna")
+        let matchCitta = true;
+        if (cittaFiltro) {
+            matchCitta = cittaEvento === cittaFiltro; // Controllo di uguaglianza perfetta (Roma !== Romagna)
+        }
+
+        // Trasformiamo provincia e regione in minuscolo e rimuoviamo spazi per un confronto pulito
         const provEvento = evento.provincia ? evento.provincia.toLowerCase().trim() : '';
-        const matchProv = !provFiltro || provEvento === provFiltro || provEvento.includes(provFiltro);
+        const matchProv = !provFiltro || provEvento === provFiltro;
 
         const regEvento = evento.regione ? evento.regione.toLowerCase().trim() : '';
-        const matchReg = !regFiltro || regEvento === regFiltro || regEvento.includes(regFiltro);
+        const matchReg = !regFiltro || regEvento === regFiltro;
 
         return matchTesto && matchTipo && matchMese && matchDataSpecifica && matchPeriodo && matchCitta && matchProv && matchReg;
     });

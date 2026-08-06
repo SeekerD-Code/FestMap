@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FestMap - Calendario Eventi</title>
 
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#4A148C">
 
     <!-- Fogli di stile -->
-    <link rel="stylesheet" href="css/calendario/style-calendario.css">
-    <link rel="stylesheet" href="css/style-menu.css">
-    <link rel="stylesheet" href="css/calendario/style-calendario-matrice.css">
+    <link rel="stylesheet" href="./css/calendario/style-calendario.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style-menu.css">
+    <link rel="stylesheet" href="./css/style-pc.css">
+    <link rel="stylesheet" href="./css/calendario/style-calendario-matrice.css">
 
-    <link rel="stylesheet" href="css/mobile/style-mobile-menu.css">
-    <link rel="stylesheet" href="css/mobile/style-mobile-calendario.css">
-    <link rel="stylesheet" href="css/mobile/style-mobile-calendario-matrice.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-menu.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-calendario.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-calendario-matrice.css">
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -28,23 +31,22 @@
 
     <!-- HEADER STATICO -->
     <header class="app-header" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; background: rgba(15, 10, 30, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
-
         <!-- Pulsante Menu Hamburger -->
         <button id="menu-toggle-btn" class="icon-btn" aria-label="Menu" style="cursor: pointer; background: none; border: none; color: white; font-size: 1.5rem; padding: 5px 10px;">
             <span>☰</span>
         </button>
 
         <!-- Navigazione Centrale -->
-        <nav class="bottom-nav inline-nav-links" style="display: flex; gap: 20px; align-items: center;">
+        <nav class="bottom-nav inline-nav-links" style="display: flex;border: none; background: rgba(15, 10, 30, 0.95); gap: 20px; align-items: center;">
             <a href="index.html" class="nav-item" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 5px;">
-                <img src="images/logo FM.png" alt="Logo" class="home-logo" style="height: 24px;">
+                <img src="./images/logo FM.png" alt="Logo" class="home-logo" style="height: 20px;">
                 <span>Home</span>
             </a>
-            <a href="map.html" class="nav-item" style="color: white; text-decoration: none;">
-                <span class="nav-icon">🗺️</span>
-                <span class="nav-label">Mappa</span>
+            <a href="elenco.html" class="nav-item" style="color: white; text-decoration: none;">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label">Elenco</span>
             </a>
-            <a href="calendario.html" class="nav-item active" style="color: #ff416c; text-decoration: none; font-weight: bold;">
+            <a href="calendario.html" class="nav-item active" style="color: #ff416c; text-decoration: none;">
                 <span class="nav-icon">📅</span>
                 <span class="nav-label">Calendario</span>
             </a>
@@ -117,22 +119,22 @@
 
             <div class="legend-item" style="display: flex; align-items: center; gap: 8px;">
                 <div class="legend-color-box cat-food"></div>
-                <img src="images/food.webp" width="80" style="border-radius: 50%; object-fit: cover;" alt="Food"> Food
+                <img src="./images/food.webp" width="80" style="border-radius: 50%; object-fit: cover;" alt="Food"> Food
             </div>
 
             <div class="legend-item" style="display: flex; align-items: center; gap: 8px;">
                 <div class="legend-color-box cat-comics"></div>
-                <img src="images/comics.webp" width="80" style="border-radius: 50%; object-fit: cover;" alt="Comics"> Comics
+                <img src="./images/comics.webp" width="80" style="border-radius: 50%; object-fit: cover;" alt="Comics"> Comics
             </div>
 
             <div class="legend-item" style="display: flex; align-items: center; gap: 8px;">
                 <div class="legend-color-box cat-folk"></div>
-                <img src="images/folk.webp" width="50" style="border-radius: 50%; object-fit: cover;" alt="Folk"> Folk
+                <img src="./images/folk.webp" width="50" style="border-radius: 50%; object-fit: cover;" alt="Folk"> Folk
             </div>
 
             <div class="legend-item" style="display: flex; align-items: center; gap: 8px;">
                 <div class="legend-color-box cat-wild"></div>
-                <img src="images/wild.webp" width="50" style="border-radius: 50%; object-fit: cover;" alt="Wild"> Wild
+                <img src="./images/wild.webp" width="50" style="border-radius: 50%; object-fit: cover;" alt="Wild"> Wild
             </div>
         </div>
 

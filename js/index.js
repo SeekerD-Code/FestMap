@@ -1,42 +1,80 @@
 import { fetchEventi } from './data-fetcher.js';
-import { creaCardEvento, popolaMesiSelect } from './ui-components.js';
-import { normalizzaDataPerFiltri, filtraEventi } from './filters-utils.js';
+import { creaCardEvento, popolaMesiSelect, initCustomCalendar } from './ui-components.js';
 import { apriModaleDettagli } from './app.js';
+import { normalizzaDataPerFiltri } from './filters-utils.js';
+
+let currentCalendarDate = new Date();
+let selectedStartDate = null;
+let selectedEndDate = null;
+let eventiTotali = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Service Worker
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js');
     }
 
-    // Nota: La gestione del Menu a Scomparsa (Drawer) è ora gestita globalmente in app.js!
+    function processaValori(rawEventi) {
+        const eventiNormalizzati = rawEventi ? rawEventi.map(e => ({
+            ...e,
+            data_inizio_grezza: normalizzaDataPerFiltri(e.data_inizio_grezza),
+            data_fine_grezza: normalizzaDataPerFiltri(e.data_fine_grezza || e.data_inizio_grezza)
+        })) : [];
 
-    // Gestione Pannello Filtri Avanzati
-    const advancedToggleBtn = document.getElementById('advanced-search-toggle');
-    const filtersPanel = document.getElementById('advanced-filters-panel');
+        return raggruppaEventiVicini(eventiNormalizzati);
+    }
 
-    if (advancedToggleBtn && filtersPanel) {
-        advancedToggleBtn.addEventListener('click', () => {
-            filtersPanel.classList.toggle('hidden');
+    function raggruppaEventiVicini(eventi) {
+        const mappa = new Map();
+
+        eventi.forEach(ev => {
+            const nomeKey = (ev.nome_rilevato || ev.nome || '').toLowerCase().trim();
+            const luogoKey = (ev.citta || ev.luogo || '').toLowerCase().trim();
+            const chiaveUnica = `${nomeKey}_${luogoKey}`;
+
+            const inizioNorm = ev.data_inizio_grezza;
+            const fineNorm = ev.data_fine_grezza || inizioNorm;
+
+            if (!mappa.has(chiaveUnica)) {
+                mappa.set(chiaveUnica, {
+                    ...ev,
+                    intervalliDate: [{ inizio: inizioNorm, fine: fineNorm }]
+                });
+            } else {
+                const esistente = mappa.get(chiaveUnica);
+                const esisteGia = esistente.intervalliDate.some(item => item.inizio === inizioNorm && item.fine === fineNorm);
+                if (!esisteGia) {
+                    esistente.intervalliDate.push({ inizio: inizioNorm, fine: fineNorm });
+                }
+            }
+        });
+
+        return Array.from(mappa.values()).map(ev => {
+            ev.intervalliDate.sort((a, b) => new Date(a.inizio) - new Date(b.inizio));
+            ev.data_inizio_grezza = ev.intervalliDate[0].inizio;
+            ev.data_fine_grezza = ev.intervalliDate[ev.intervalliDate.length - 1].fine;
+            return ev;
         });
     }
 
-    // Caricamento Dati
+    // Funzione per aggiornare la UI se arrivano dati nuovi freschi dalla rete in background
+    window.aggiornaDatiInBackground = (rawEventiFreschi) => {
+        eventiTotali = processaValori(rawEventiFreschi);
+        popolaMesiInSelect(eventiTotali);
+        eseguiFiltroERender();
+    };
+
+    // Caricamento immediato (sfrutta la cache in 0 secondi)
     const rawEventi = await fetchEventi();
-    const eventiTotali = rawEventi ? rawEventi.map(e => ({
-        ...e,
-        data_inizio_grezza: normalizzaDataPerFiltri(e.data_inizio_grezza),
-        data_fine_grezza: normalizzaDataPerFiltri(e.data_fine_grezza || e.data_inizio_grezza)
-    })) : [];
+    eventiTotali = processaValori(rawEventi);
 
-    // Popola i Mesi nel Select (tramite ui-components o logica diretta di fallback)
-    const selectMese = document.getElementById('filter-mese');
-    if (selectMese && eventiTotali) {
+    function popolaMesiInSelect(listaEventi) {
+        const selectMese = document.getElementById('filter-mese');
+        if (!selectMese) return;
+
         if (typeof popolaMesiSelect === 'function') {
-            popolaMesiSelect(eventiTotali);
+            popolaMesiSelect(listaEventi);
         } else {
-            const mesiDisponibili = [...new Set(eventiTotali.map(e => e.data_inizio_grezza ? e.data_inizio_grezza.substring(0, 7) : null))].filter(Boolean).sort();
-
+            const mesiDisponibili = [...new Set(listaEventi.map(e => e.data_inizio_grezza ? e.data_inizio_grezza.substring(0, 7) : null))].filter(Boolean).sort();
             let optionsHtml = '<option value="">Tutti i mesi</option>';
             mesiDisponibili.forEach(meseStr => {
                 const [anno, mese] = meseStr.split('-');
@@ -46,18 +84,91 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             selectMese.innerHTML = optionsHtml;
         }
+    }
 
+    const selectMese = document.getElementById('filter-mese');
+    if (selectMese) {
+        popolaMesiInSelect(eventiTotali);
         selectMese.addEventListener('change', () => eseguiFiltroERender());
     }
 
-    // Funzione principale di rendering (Aggiorna anche il Contatore in alto a destra)
+    initCustomCalendar();
+
+    function filtraEventiElenco(eventi) {
+        const searchInput = document.getElementById('search-input');
+        const testoQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        const meseFiltro = document.getElementById('filter-mese')?.value || '';
+        const daFiltro = document.getElementById('filter-da')?.value || '';
+        const aFiltro = document.getElementById('filter-a')?.value || '';
+
+        const cittaFiltro = document.getElementById('filter-citta')?.value.toLowerCase().trim() || '';
+        const provFiltro = document.getElementById('filter-provincia')?.value.toLowerCase().trim() || '';
+        const regFiltro = document.getElementById('filter-regione')?.value.toLowerCase().trim() || '';
+
+        const categoryCheckboxes = document.querySelectorAll('input[name="categoria"]');
+        const categorieSelezionate = Array.from(categoryCheckboxes)
+            .filter(c => c.checked)
+            .map(c => c.value.toLowerCase());
+
+        return eventi.filter(evento => {
+            const nomeEv = (evento.nome_rilevato || evento.nome || '').toLowerCase().trim();
+            const catEv = (evento.categoria || evento.tipo || evento.genere || '').toLowerCase().trim();
+            const cittaEv = (evento.citta || '').toLowerCase().trim();
+            const provEv = (evento.provincia || '').toLowerCase().trim();
+            const regEv = (evento.regione || '').toLowerCase().trim();
+
+            const inizioStd = evento.data_inizio_grezza;
+            const fineStd = evento.data_fine_grezza || inizioStd;
+
+            if (testoQuery) {
+                const matchNome = nomeEv.includes(testoQuery);
+                const matchCitta = cittaEv.includes(testoQuery);
+                const matchProv = provEv.includes(testoQuery);
+                if (!matchNome && !matchCitta && !matchProv) return false;
+            }
+
+            if (categoryCheckboxes.length > 0 && categorieSelezionate.length < categoryCheckboxes.length) {
+                const matchCat = categorieSelezionate.some(cat => catEv.includes(cat));
+                if (!matchCat) return false;
+            }
+
+            let matchMese = true;
+            if (meseFiltro) {
+                const [annoF, meseF] = meseFiltro.split('-').map(Number);
+                if (meseF === 10 || meseF === 11) {
+                    matchMese = evento.intervalliDate.some(intervallo => {
+                        const [iAnno, iMese] = intervallo.inizio.split('-').map(Number);
+                        const [fAnno, fMese] = intervallo.fine.split('-').map(Number);
+                        const inizioMeseTotale = iAnno * 12 + iMese;
+                        const fineMeseTotale = fAnno * 12 + fMese;
+                        const filtroMeseTotale = annoF * 12 + meseF;
+                        return fineMeseTotale >= filtroMeseTotale && inizioMeseTotale <= filtroMeseTotale + 4;
+                    });
+                } else {
+                    matchMese = evento.intervalliDate.some(intervallo =>
+                        intervallo.inizio.startsWith(meseFiltro) || intervallo.fine.startsWith(meseFiltro)
+                    );
+                }
+                if (!matchMese) return false;
+            }
+
+            if (daFiltro && fineStd < daFiltro) return false;
+            if (aFiltro && inizioStd > aFiltro) return false;
+
+            if (cittaFiltro && !cittaEv.includes(cittaFiltro)) return false;
+            if (provFiltro && !provEv.includes(provFiltro)) return false;
+            if (regFiltro && !regEv.includes(regFiltro)) return false;
+
+            return true;
+        });
+    }
+
     function renderizzaEventi(listaEventi) {
         const containerPrimi = document.getElementById('primi-eventi-container');
         const containerEventi = document.getElementById('anteprima-eventi');
         const sezionePreferitiTitolo = document.getElementById('titolo-sezione-preferiti');
         const sortSelect = document.getElementById('sort-order-select');
         const counterSpan = document.getElementById('counter-value');
-
         const oggi = new Date().toISOString().split('T')[0];
 
         const ordinamentoScelto = sortSelect ? sortSelect.value : 'asc';
@@ -69,7 +180,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const validi = ordinati.filter(e => e.data_fine_grezza >= oggi);
 
-        // --- AGGIORNA IL CONTATORE ---
         if (counterSpan) {
             counterSpan.textContent = validi.length;
         }
@@ -89,105 +199,86 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
-        const successivi10 = validi;
         if (containerEventi) {
-            containerEventi.innerHTML = successivi10.length > 0
-                ? successivi10.map(e => creaCardEvento(e, false)).join('')
-                : '<p>Nessun evento disponibile al momento.</p>';
+            containerEventi.innerHTML = validi.length > 0
+                ? validi.map(e => creaCardEvento(e, false)).join('')
+                : '<p style="padding: 20px; text-align: center; color: #666;">Nessun evento disponibile con i filtri selezionati.</p>';
         }
     }
 
     function eseguiFiltroERender() {
-        const filtrati = filtraEventi(eventiTotali);
+        const filtrati = filtraEventiElenco(eventiTotali);
         renderizzaEventi(filtrati);
     }
 
-    // Primo avvio
     if (eventiTotali && eventiTotali.length > 0) {
         renderizzaEventi(eventiTotali);
     }
     window.festmapDatiPronti = true;
     window.dispatchEvent(new Event('festmap-pronta'));
 
-    // Ascoltatori eventi UI (Ricerca, Filtri, Ordinamento)
-    const applyFiltersBtn = document.getElementById('apply-filters-btn');
-    const resetFiltersBtn = document.getElementById('reset-filters-btn');
     const searchInput = document.getElementById('search-input');
     const sortSelect = document.getElementById('sort-order-select');
+    const categoryCheckboxes = document.querySelectorAll('input[name="categoria"]');
 
-    if (applyFiltersBtn) {
-        applyFiltersBtn.addEventListener('click', () => {
-            eseguiFiltroERender();
-            if (filtersPanel) filtersPanel.classList.add('hidden');
-        });
-    }
+    if (searchInput) searchInput.addEventListener('input', () => eseguiFiltroERender());
+    if (sortSelect) sortSelect.addEventListener('change', () => eseguiFiltroERender());
 
-    if (searchInput) {
-        searchInput.addEventListener('input', () => eseguiFiltroERender());
-    }
+    categoryCheckboxes.forEach(chk => {
+        chk.addEventListener('change', () => eseguiFiltroERender());
+    });
 
-    if (sortSelect) {
-        sortSelect.addEventListener('change', () => eseguiFiltroERender());
-    }
+    const idsFiltriDinamici = ['filter-citta', 'filter-provincia', 'filter-regione', 'filter-da', 'filter-a'];
+    idsFiltriDinamici.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            const eventoAscolto = el.type === 'date' ? 'change' : 'input';
+            el.addEventListener(eventoAscolto, () => eseguiFiltroERender());
+        }
+    });
 
-
+    const resetFiltersBtn = document.getElementById('reset-filters-btn');
     if (resetFiltersBtn) {
         resetFiltersBtn.addEventListener('click', () => {
-            // 1. Svuota tutti i campi di input e select del pannello
-            const searchInput = document.getElementById('search-input');
-            const filterTipo = document.getElementById('filter-tipo');
-            const filterMese = document.getElementById('filter-mese');
-            const filterData = document.getElementById('filter-data');
-            const filterDa = document.getElementById('filter-da');
-            const filterA = document.getElementById('filter-a');
-            const filterCitta = document.getElementById('filter-citta');
-            const filterProvincia = document.getElementById('filter-provincia');
-            const filterRegione = document.getElementById('filter-regione');
-
             if (searchInput) searchInput.value = '';
-            if (filterTipo) filterTipo.value = '';
-            if (filterMese) filterMese.value = '';
-            if (filterData) filterData.value = '';
-            if (filterDa) filterDa.value = '';
-            if (filterA) filterA.value = '';
-            if (filterCitta) filterCitta.value = '';
-            if (filterProvincia) filterProvincia.value = '';
-            if (filterRegione) filterRegione.value = '';
+            const selectMese = document.getElementById('filter-mese');
+            if (selectMese) selectMese.value = '';
+            document.getElementById('filter-citta').value = '';
+            document.getElementById('filter-provincia').value = '';
+            document.getElementById('filter-regione').value = '';
+            document.getElementById('filter-da').value = '';
+            document.getElementById('filter-a').value = '';
 
-            // 2. Riesegui il rendering con tutti gli eventi originali
+            selectedStartDate = null;
+            selectedEndDate = null;
+            const summaryEl = document.getElementById('date-summary-text');
+            if (summaryEl) summaryEl.textContent = '📅 Date';
+
+            categoryCheckboxes.forEach(chk => chk.checked = true);
+            initCustomCalendar();
             renderizzaEventi(eventiTotali);
-
-            // 3. (Opzionale) Chiude il pannello dopo il reset
-            if (filtersPanel) filtersPanel.classList.add('hidden');
         });
     }
 
-    // Gestione globale dei click sulle card (Preferiti e Dettagli)
     document.addEventListener('click', (e) => {
-        // 1. Gestione click sul cuoricino dei preferiti
         const btnPreferito = e.target.closest('.btn-preferito-overlay');
         if (btnPreferito) {
             const idEvento = btnPreferito.getAttribute('data-id');
             if (idEvento) {
                 let preferiti = JSON.parse(localStorage.getItem('festmap_preferiti') || '[]');
-
                 if (preferiti.includes(idEvento)) {
                     preferiti = preferiti.filter(id => id !== idEvento);
                     btnPreferito.classList.remove('preferito-attivo');
-                    btnPreferito.setAttribute('title', 'Aggiungi ai preferiti');
                 } else {
                     preferiti.push(idEvento);
                     btnPreferito.classList.add('preferito-attivo');
-                    btnPreferito.setAttribute('title', 'Rimuovi dai preferiti');
                 }
-
                 localStorage.setItem('festmap_preferiti', JSON.stringify(preferiti));
                 eseguiFiltroERender();
             }
             return;
         }
 
-        // 2. Gestione click sul pulsante "Dettagli"
         const btnDettaglio = e.target.closest('.btn-apri-dettaglio');
         if (btnDettaglio) {
             const eventoB64 = btnDettaglio.getAttribute('data-evento-b64');
@@ -196,7 +287,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const evento = JSON.parse(eventoJson);
                 apriModaleDettagli(evento);
             } catch (err) {
-                console.error("Errore nel parsing dei dati dell'evento per i dettagli:", err);
+                console.error("Errore nel parsing dei dati dell'evento:", err);
             }
         }
     });
