@@ -9,6 +9,7 @@ function caricaAnimazioniInSequenza(classe, ritardoMs = 250) {
     }, indice * ritardoMs);
   });
 }
+
 // 2. Definizione della sequenza temporizzata delle fasi
 const fasiCaricamento = [
     { time: 0,    text: "Ricerca eventi in Italia...", png: null },
@@ -22,18 +23,23 @@ const fasiCaricamento = [
 window.addEventListener('load', () => {
     const splash = document.getElementById('splash-screen');
 
-    if (sessionStorage.getItem('festmap_splash_visto')) {
-        if (splash) splash.remove();
+    // Usiamo localStorage così lo splash compare UNA sola volta in assoluto (o finché non pulisce i dati)
+    // Se preferisci che appaia solo alla prima apertura in assoluto, tieni localStorage. 
+    // Se vuoi che non appaia più quando clicchi Home, localStorage risolve il problema.
+    if (localStorage.getItem('festmap_splash_visto')) {
+        if (splash) {
+            splash.style.display = 'none';
+            splash.remove();
+        }
         return;
     }
 
-    sessionStorage.setItem('festmap_splash_visto', 'true');
+    localStorage.setItem('festmap_splash_visto', 'true');
 
     let datiPronti = false;
     let animazioneMinimaCompletata = false;
 
     const chiudiSplashSePronto = () => {
-        // Chiude lo splash solo se i dati sono arrivati E l'animazione minima è finita
         if (datiPronti && animazioneMinimaCompletata) {
             if (splash && !splash.classList.contains('splash-hidden')) {
                 splash.classList.add('splash-hidden');
@@ -62,18 +68,15 @@ window.addEventListener('load', () => {
                 }, 200);
             }
 
-            // Aggiornamo l'icona centrale del loader con il nuovo PNG statico
             if (loaderIconContainer) {
                 loaderIconContainer.innerHTML = "";
                 loaderIconContainer.className = "";
 
                 if (fase.png) {
-                    // Inseriamo direttamente il tag <img> con l'PNG
                     loaderIconContainer.innerHTML = `<img src="${fase.png}" class="png-loader-icon" alt="icon">`;
                 }
             }
 
-            // Attiviamo la comparsa dei pin corrispondenti sulla mappa/schermata
             if (fase.classeAnim) {
                 caricaAnimazioniInSequenza(fase.classeAnim, 250);
             }
@@ -81,14 +84,13 @@ window.addEventListener('load', () => {
         }, fase.time);
     });
 
-
-    // 3. Fissiamo un tempo minimo garantito per l'animazione grafica (es. dopo 10 secondi sblocchiamo la parte visiva)
+    // 3. Tempo minimo garantito per l'animazione grafica
     setTimeout(() => {
         animazioneMinimaCompletata = true;
         chiudiSplashSePronto();
     }, 10000);
 
-    // 4. Timeout di emergenza estremo (es. 25 secondi) se la connessione è morta, per evitare il blocco eterno
+    // 4. Timeout di emergenza
     setTimeout(() => {
         if (splash) splash.remove();
     }, 25000);
