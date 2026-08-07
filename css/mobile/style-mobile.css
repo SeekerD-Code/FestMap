@@ -19,7 +19,7 @@
     /* --- Quadratino Fluttuante PWA (Smartphone) --- */
     .pwa-mobile-float-btn {
         position: fixed !important;
-        top: 40px !important;
+        top: 30px !important;
         right: 5px !important;
         background: #4A148C;
         color: white;
