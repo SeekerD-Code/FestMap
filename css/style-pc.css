@@ -1,5 +1,10 @@
 /* Media query per schermi più grandi (Desktop / Tablet) */
 @media (min-width: 768px) {
+    
+    #pwa-install-mobile-float {
+        display: none !important;
+    }
+    
     body {
         padding-bottom: 20px;
     }
