@@ -158,4 +158,111 @@
         visibility: visible;
     }
 
+    .search-section {
+        padding: 8px 10px !important;
+        background: #ffffff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .search-main-row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    /* Input di ricerca occupa lo spazio principale */
+    #search-input {
+        flex: 1 !important;
+        min-width: 120px !important;
+        padding: 8px 10px !important;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 0.85rem;
+    }
+
+    /* Pulsante Filtri visibile solo su mobile */
+    .btn-mobile-filters {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 4px;
+        background: #4A148C !important;
+        color: white !important;
+        border: none !important;
+        padding: 8px 12px !important;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: bold;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    /* Contenitore dei filtri nascosto di default su mobile (stile tendina) */
+    .filters-dropdown-container {
+        display: none !important;
+        width: 100% !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        padding-top: 8px !important;
+        margin-top: 4px !important;
+        border-top: 1px solid #eee;
+    }
+
+    /* Quando la tendina è aperta tramite JS */
+    .filters-dropdown-container.mobile-filters-open {
+        display: flex !important;
+    }
+
+    /* I singoli dropdown interni occupano tutta la larghezza nella tendina mobile */
+    .filters-dropdown-container .filter-dropdown-item {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Pulsante reset allineato */
+    #reset-filters-btn {
+        padding: 8px 10px !important;
+        border-radius: 6px;
+    }
+}
+
+/* --- CORREZIONE VISUALIZZAZIONE PC --- */
+@media screen and (min-width: 768px) {
+    /* Nasconde il pulsante Filtri su desktop */
+    .btn-mobile-filters {
+        display: none !important;
+    }
+
+    /* Forza la riga principale a disporre gli elementi in linea orizzontale */
+    .search-main-row {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+    }
+
+    /* Rende visibile e affiancato il contenitore dei filtri su desktop */
+    .filters-dropdown-container {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 8px !important;
+        width: auto !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        border-top: none !important;
+    }
+
+    /* I singoli filtri tornano a occupare solo lo spazio necessario in riga */
+    .filters-dropdown-container .filter-dropdown-item {
+        width: auto !important;
+        flex: 0 0 auto !important;
+    }
+
+    /* Barra di ricerca elastica che riempie lo spazio rimanente */
+    #search-input {
+        flex: 1 !important;
+        min-width: 150px !important;
+    }
 }
