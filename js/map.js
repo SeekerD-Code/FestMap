@@ -170,6 +170,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             applicaFiltriMappa();
         });
     }
+
+    // --- GESTIONE APERTURA / CHIUSURA TENDINA FILTRI MOBILE ---
+    const mobileFilterToggle = document.getElementById('mobile-filter-toggle');
+    const filtersContainer = document.getElementById('filters-container');
+
+    if (mobileFilterToggle && filtersContainer) {
+        mobileFilterToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            filtersContainer.classList.toggle('mobile-filters-open');
+            const isOpen = filtersContainer.classList.contains('mobile-filters-open');
+            mobileFilterToggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Chiude la tendina se si clicca fuori
+        document.addEventListener('click', (e) => {
+            if (!filtersContainer.contains(e.target) && e.target !== mobileFilterToggle) {
+                filtersContainer.classList.remove('mobile-filters-open');
+                mobileFilterToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
 });
 
 function popolaDropdownCategorie() {
