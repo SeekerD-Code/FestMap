@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FestMap - Calendario Eventi</title>
+
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#4A148C">
+
+    <!-- Fogli di stile -->
+    <link rel="stylesheet" href="./css/calendario/style-calendario.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style-menu.css">
+    <link rel="stylesheet" href="./css/style-pc.css">
+    <link rel="stylesheet" href="./css/calendario/style-calendario-matrice.css">
+
+    <link rel="stylesheet" href="./css/mobile/style-mobile.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-menu.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-calendario.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-calendario-matrice.css">
+
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+</head>
+<body class="calendar-page-body">
+
+    <!-- SFONDO FISSO -->
+    <div class="site-background-overlay"></div>
+
+    <!-- HEADER STATICO -->
+    <header class="app-header" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; background: rgba(15, 10, 30, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
+        <!-- Pulsante Menu Hamburger -->
+        <button id="menu-toggle-btn" class="icon-btn" aria-label="Menu" style="cursor: pointer; background: none; border: none; color: white; font-size: 1.5rem; padding: 5px 10px;">
+            <span>☰</span>
+        </button>
+
+        <!-- Navigazione Centrale -->
+        <nav class="bottom-nav inline-nav-links" style="display: flex;border: none; background: rgba(15, 10, 30, 0.95); gap: 20px; align-items: center;">
+            <a href="index.html" class="nav-item" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                <img src="./images/logo FM.png" alt="Logo" class="home-logo" style="height: 20px;">
+                <span>Home</span>
+            </a>
+            <a href="elenco.html" class="nav-item" style="color: white; text-decoration: none;">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label">Elenco</span>
+            </a>
+            <a href="calendario.html" class="nav-item active" style="color: #ff416c; text-decoration: none;">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Calendario</span>
+            </a>
+            <a href="preferiti.html" class="nav-item" style="color: white; text-decoration: none;">
+                <span class="nav-icon">❤️</span>
+                <span class="nav-label">Preferiti</span>
+            </a>
+        </nav>
+
+        <!-- Spazio destro di bilanciamento -->
+        <div class="header-right-space" style="width: 40px;"></div>
+    </header>
+
+    <!-- CASSETTO DEL MENU LATERALE (DRAWER) -->
+    <nav id="side-drawer" class="drawer" style="position: fixed; top: 0; left: 0; width: 280px; height: 100vh; background: #140f23; z-index: 10000; transform: translateX(-100%); transition: transform 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.5); padding: 20px; box-sizing: border-box; color: white;">
+        <div class="drawer-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="margin: 0;">Menu</h3>
+            <button id="drawer-close-btn" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">&times;</button>
+        </div>
+        <ul class="drawer-links" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 15px;">
+            <li><a href="eventi/wild.html" style="color: white; text-decoration: none;">Wild Festivals</a></li>
+            <li><a href="eventi/comics.html" style="color: white; text-decoration: none;">Comics & Cosplay</a></li>
+            <li><a href="eventi/food.html" style="color: white; text-decoration: none;">Food & Good</a></li>
+            <li><a href="eventi/folk.html" style="color: white; text-decoration: none;">Folklore & Tradizioni</a></li>
+            <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:10px 0;">
+            <li><a href="contatti.html" style="font-weight: bold !important; color: #ff6b6b !important; text-decoration: underline !important;">Segnala un Evento & Contatti</a></li>            <li><a href="faq.html" style="color: white; text-decoration: none;">FAQ</a></li>
+            <li><a href="privacy.html" style="color: white; text-decoration: none;">Privacy & Note Legali</a></li>
+        </ul>
+
+
+    </nav>
+    <div id="drawer-backdrop" class="backdrop" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 9995; opacity: 0; visibility: hidden; transition: all 0.3s ease;"></div>
+
+    <!-- CONTENITORE PRINCIPALE -->
+    <div id="app" style="padding-top: 90px; max-width: 1200px; margin: 0 auto; padding-left: 15px; padding-right: 15px; box-sizing: border-box;">
+
+        <!-- BARRA DEI FILTRI -->
+        <div class="filters-calendar-bar">
+            <input type="text" id="filter-testo" placeholder="Cerca evento...">
+            <select id="filter-categoria">
+                <option value="">Tutte le categorie</option>
+            </select>
+            <input type="text" id="filter-citta" placeholder="Città...">
+            <input type="text" id="filter-provincia" placeholder="Provincia...">
+            <input type="text" id="filter-regione" placeholder="Regione...">
+        </div>
+
+        <!-- UNICO CONTENITORE: NAVIGAZIONE ANNUALE + GRIGLIA CALENDARIO -->
+    <div class="calendar-unified-wrapper" style="background: rgba(20, 15, 35, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px; margin-top: 20px; backdrop-filter: blur(10px);">
+
+        <!-- NAVIGAZIONE ANNUALE (Senza il vecchio box isolato) -->
+        <div class="calendar-header-nav" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: -10px; border: none; background: transparent; padding: 0;">
+            <button id="prev-month-btn">◀ Precedente</button>
+            <h2 id="current-month-title" style="margin: 0; color: white;">2026</h2>
+            <button id="next-month-btn">Successivo ▶</button>
+        </div>
+
+        <!-- Indicazione sul numero eventi in Italia -->
+    <div style="color: rgb(255, 255, 255); font-size: 1rem; font-style:normal; padding-left: 15px; margin-top: 25px;">
+        ℹ️ Il numero nelle celle indica gli eventi in Italia in quel giorno
+    </div>
+
+
+        <!-- GRIGLIA CALENDARIO -->
+        <div id="calendar-grid-body"></div>
+
+        <!-- Legenda Categorie -->
+        <div class="calendar-legend-container" style="display: flex; flex-wrap: wrap; gap: 20px; background: rgba(25, 20, 45, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.12); padding: 15px 20px; border-radius: 16px; margin-top: 20px; align-items: center; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); color: #fff; font-size: 0.85rem;">
+            <span class="legend-title" style="font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #a09cb0; margin-right: 10px;">Legenda Categorie:</span>
+
+            <div class="legend-item" style="display: flex; align-items: center; gap: 8px;">
+                <div class="legend-color-box cat-food"></div>
+                <img src="./images/food.webp" width="80" style="border-radius: 50%; object-fit: cover;" alt="Food"> Food
+            </div>
+
+            <div class="legend-item" style="display: flex; align-items: center; gap: 8px;">
+                <div class="legend-color-box cat-comics"></div>
+                <img src="./images/comics.webp" width="80" style="border-radius: 50%; object-fit: cover;" alt="Comics"> Comics
+            </div>
+
+            <div class="legend-item" style="display: flex; align-items: center; gap: 8px;">
+                <div class="legend-color-box cat-folk"></div>
+                <img src="./images/folk.webp" width="50" style="border-radius: 50%; object-fit: cover;" alt="Folk"> Folk
+            </div>
+
+            <div class="legend-item" style="display: flex; align-items: center; gap: 8px;">
+                <div class="legend-color-box cat-wild"></div>
+                <img src="./images/wild.webp" width="50" style="border-radius: 50%; object-fit: cover;" alt="Wild"> Wild
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
+    <!-- SCRIPT DI APERTURA/CHIUSURA MENU -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-toggle-btn');
+            const closeBtn = document.getElementById('drawer-close-btn');
+            const drawer = document.getElementById('side-drawer');
+            const backdrop = document.getElementById('drawer-backdrop');
+
+            if (menuBtn && drawer && backdrop) {
+                menuBtn.addEventListener('click', () => {
+                    drawer.style.transform = 'translateX(0)';
+                    backdrop.style.opacity = '1';
+                    backdrop.style.visibility = 'visible';
+                });
+            }
+
+            const chiudiMenu = () => {
+                if (drawer && backdrop) {
+                    drawer.style.transform = 'translateX(-100%)';
+                    backdrop.style.opacity = '0';
+                    backdrop.style.visibility = 'hidden';
+                }
+            };
+
+            if (closeBtn) closeBtn.addEventListener('click', chiudiMenu);
+            if (backdrop) backdrop.addEventListener('click', chiudiMenu);
+        });
+    </script>
+
+    <!-- SCRIPT LOGICA CALENDARIO E EVENTI -->
+    <script type="module" src="js/calendario.js"></script>
+</body>
+</html>

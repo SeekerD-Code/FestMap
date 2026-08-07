@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#4A148C">
+
+
+    <title>Dettagli Evento - FestMap</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style-menu.css">
+
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style-menu.css">
+    <link rel="stylesheet" href="./css/style-pc.css">
+    <link rel="stylesheet" href="./css/style-evento.css">
+     <!-- Stile dedicato allo Splash Screen -->
+
+     <!-- Mobile -->
+    <link rel="stylesheet" href="./css/mobile/style-mobile.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-index.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-menu.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-evento.css">
+
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+</head>
+<body>
+
+    <!-- Barra del menu superiore coerente con l'Index -->
+    <header class="app-header" style="position: relative;">
+        <button id="menu-toggle-btn" class="icon-btn" aria-label="Menu">
+            <span>☰</span>
+        </button>
+
+        <nav class="bottom-nav inline-nav-links">
+            <a href="index.html" class="nav-item">
+                <img src="./images/logo FM.png" alt="Logo" class="home-logo" style="height: 20px;">
+                <span>Home</span>
+            </a>
+            <a href="elenco.html" class="nav-item active">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label">Elenco</span>
+            </a>
+            <a href="calendario.html" class="nav-item">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Calendario</span>
+            </a>
+            <a href="preferiti.html" class="nav-item">
+                <span class="nav-icon">❤️</span>
+                <span class="nav-label">Preferiti</span>
+            </a>
+        </nav>
+
+        <div class="header-right-space"></div>
+    </header>
+
+    <!-- MENU LATERALE (DRAWER) -->
+    <nav id="side-drawer" class="drawer">
+        <div class="drawer-header">
+            <h3>Menu</h3>
+            <button id="drawer-close-btn">&times;</button>
+        </div>
+        <ul class="drawer-links">
+            <li><a href="eventi/wild.html">Wild Festivals</a></li>
+            <li><a href="eventi/comics.html">Comics & Cosplay</a></li>
+            <li><a href="eventi/food.html">Food & Good</a></li>
+            <li><a href="eventi/folk.html">Folklore & Tradizioni</a></li>
+            <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+            <li><a href="contatti.html" style="font-weight: bold !important; color: #ff6b6b !important; text-decoration: underline !important;">Segnala un Evento & Contatti</a></li>            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy & Note Legali</a></li>
+        </ul>
+    </nav>
+    <div id="drawer-backdrop" class="backdrop"></div>
+
+    <!-- Contenitore Principale dei Dettagli -->
+    <div class="dettaglio-main-container" id="dettaglio-container">
+
+        <!-- Nome dell'evento in alto -->
+        <h1 id="det-titolo">Caricamento in corso...</h1>
+
+        <div class="dettaglio-top-section">
+            <!-- Locandina a sinistra -->
+            <div class="dettaglio-locandina-box">
+                <img id="det-locandina" src="./images/cosplayersitaliani.webp" alt="Locandina Evento">
+            </div>
+
+            <!-- Date, indirizzo e recapiti a destra -->
+            <div class="dettaglio-info-box">
+                <p>📅 <strong>Date:</strong> <span id="det-date">-</span></p>
+                <p>📍 <strong>Indirizzo/Luogo:</strong> <span id="det-luogo">-</span></p>
+                <p>🏷️ <strong>Categoria:</strong> <span id="det-categoria">-</span></p>
+                <p id="box-telefono" style="display: none;">📞 <strong>Telefono:</strong> <span id="det-telefono-container"></span></p>
+                <p id="box-email" style="display: none;">✉️ <strong>Email:</strong> <a id="det-email" href="#"></a></p>
+
+                <div style="margin-top: 20px;">
+                    <a id="det-sito" href="#" target="_blank" class="btn-azione" style="display: none;">🌐 Visita Sito Web</a>
+                    <a id="det-biglietti" href="#" target="_blank" class="btn-azione" style="background: #28a745; display: none;">🎟️ Prendi Biglietti</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sotto tutto il resto -->
+        <div class="dettaglio-bottom-section">
+            <h3>Descrizione dell'Evento</h3>
+            <div id="det-descrizione">Nessuna descrizione aggiuntiva disponibile per questo evento.</div>
+        </div>
+
+    </div>
+
+    <!-- Script per la gestione del menu a scomparsa e popolamento dati con date formattate -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Gestione Menu a Scomparsa (Drawer) ---
+            const menuToggleBtn = document.getElementById('menu-toggle-btn');
+            const sideDrawer = document.getElementById('side-drawer');
+            const drawerBackdrop = document.getElementById('drawer-backdrop');
+            const drawerCloseBtn = document.getElementById('drawer-close-btn');
+
+            function apriDrawer() {
+                if (sideDrawer) sideDrawer.classList.add('open');
+                if (drawerBackdrop) drawerBackdrop.classList.add('show');
+            }
+
+            function chiudiDrawer() {
+                if (sideDrawer) sideDrawer.classList.remove('open');
+                if (drawerBackdrop) drawerBackdrop.classList.remove('show');
+            }
+
+            if (menuToggleBtn) menuToggleBtn.addEventListener('click', apriDrawer);
+            if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', chiudiDrawer);
+            if (drawerBackdrop) drawerBackdrop.addEventListener('click', chiudiDrawer);
+
+            // --- Logica Formattazione Date ---
+            const pulisciDataIso = (dataStr) => {
+                if (!dataStr) return '';
+                return dataStr.split('T')[0];
+            };
+
+            const formattaInItaliano = (dataIso) => {
+                const soloData = pulisciDataIso(dataIso);
+                if (!soloData) return '';
+                const [anno, mese, giorno] = soloData.split('-');
+                if (!anno || !mese || !giorno) return soloData;
+
+                const dataObj = new Date(anno, mese - 1, giorno);
+                return dataObj.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+            };
+
+            // --- Popolamento Dati Evento da localStorage ---
+            const eventoJson = localStorage.getItem('eventoSelezionatoDettaglio');
+
+            if (eventoJson) {
+                const ev = JSON.parse(eventoJson);
+
+                // 1. Nome in alto
+                document.getElementById('det-titolo').textContent = ev.nome_rilevato || ev.nome || 'Evento senza nome';
+
+                // 2. Locandina
+                const imgEl = document.getElementById('det-locandina');
+                imgEl.src = ev.locandina ? ev.locandina : './images/cosplayersitaliani.webp';
+
+                // 3. Date e Indirizzo formattati puliti
+                const dataInizioFormatted = formattaInItaliano(ev.data_inizio_grezza || ev.data_inizio || ev.data);
+                const dataFineFormatted = formattaInItaliano(ev.data_fine_grezza || ev.data_fine);
+
+                let stringaDate = dataInizioFormatted;
+                if (dataFineFormatted && dataInizioFormatted !== dataFineFormatted) {
+                    stringaDate = `Dal ${dataInizioFormatted} al ${dataFineFormatted}`;
+                }
+                document.getElementById('det-date').textContent = stringaDate || 'Data non specificata';
+
+                const luogoEl = document.getElementById('det-luogo');
+                const testoLuogo = ev.luogo || 'Luogo non specificato';
+
+                if (ev.latitudine && ev.longitudine && ev.latitudine !== 0 && ev.longitudine !== 0) {
+                    luogoEl.innerHTML = `<a href="../index.html?lat=${ev.latitudine}&lng=${ev.longitudine}" style="color: #007bff; text-decoration: underline;" title="Visualizza sulla mappa">${testoLuogo} 📍</a>`;
+                } else {
+                    luogoEl.textContent = testoLuogo;
+                }
+
+                document.getElementById('det-categoria').textContent = ev.categoria || ev.tipo || 'Generale';
+
+                // 4. Recapiti condizionali (Usa ev.telefoni al plurale)
+                const telefonoVal = ev.telefoni || ev.telefono;
+                if (telefonoVal) {
+                    const telContainer = document.getElementById('det-telefono-container');
+                    telContainer.innerHTML = `<a href="tel:${telefonoVal}">${telefonoVal}</a>`;
+                    document.getElementById('box-telefono').style.display = 'block';
+                }
+
+                if (ev.email) {
+                    const emailEl = document.getElementById('det-email');
+                    emailEl.textContent = ev.email;
+                    emailEl.href = `mailto:${ev.email}`;
+                    document.getElementById('box-email').style.display = 'block';
+                }
+
+                if (ev.sito_web || ev.sito) {
+                    const sitoEl = document.getElementById('det-sito');
+                    sitoEl.href = ev.sito_web || ev.sito;
+                    sitoEl.style.display = 'inline-block';
+                }
+
+                if (ev.link_biglietti || ev.biglietti) {
+                    const biglEl = document.getElementById('det-biglietti');
+                    biglEl.href = ev.link_biglietti || ev.biglietti;
+                    biglEl.style.display = 'inline-block';
+                }
+
+                // 5. Descrizione
+                if (ev.descrizione) {
+                    document.getElementById('det-descrizione').textContent = ev.descrizione;
+                }
+
+            } else {
+                document.getElementById('dettaglio-container').innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <h2>Nessun evento selezionato</h2>
+                        <p>Torna alla <a href="index.html">Home</a> o alla <a href="map.html">Mappa</a> e seleziona un evento per visualizzarne i dettagli.</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

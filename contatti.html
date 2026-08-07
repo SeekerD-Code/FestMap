@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#4A148C">
+
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style-menu.css">
+    <link rel="stylesheet" href="./css/style-pc.css">
+
+    <!-- Mobile -->
+    <link rel="stylesheet" href="./css/mobile/style-mobile.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-index.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-menu.css">
+    <link rel="stylesheet" href="./css/mobile/style-mobile-contatti.css">
+
+
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+
+    <title>FestMap - Segnala Evento & Contatti</title>
+</head>
+<body>
+
+<!-- INTERFACCIA PRINCIPALE -->
+<div id="app" class="main-app-container">
+
+    <!-- HEADER FISSO (Identico all'Index) -->
+    <header class="app-header" style="position: relative;">
+        <button id="menu-toggle-btn" class="icon-btn" aria-label="Menu">
+            <span>☰</span>
+        </button>
+
+        <nav class="bottom-nav inline-nav-links">
+            <a href="index.html" class="nav-item">
+                <img src="./images/logo FM.png" alt="Logo" class="home-logo">
+                <span>Home</span>
+            </a>
+            <a href="elenco.html" class="nav-item active">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label">Elenco</span>
+            </a>
+            <a href="calendario.html" class="nav-item">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Calendario</span>
+            </a>
+            <a href="preferiti.html" class="nav-item">
+                <span class="nav-icon">❤️</span>
+                <span class="nav-label">Preferiti</span>
+            </a>
+        </nav>
+
+        <div class="header-right-space"></div>
+    </header>
+
+    <!-- MENU LATERALE (DRAWER) -->
+    <nav id="side-drawer" class="drawer">
+        <div class="drawer-header">
+            <h3>Menu</h3>
+            <button id="drawer-close-btn">&times;</button>
+        </div>
+        <ul class="drawer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="eventi/wild.html">Wild Festivals</a></li>
+            <li><a href="eventi/comics.html">Comics & Cosplay</a></li>
+            <li><a href="eventi/food.html">Food & Good</a></li>
+            <li><a href="eventi/folk.html">Folklore & Tradizioni</a></li>
+            <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+            <li><a href="contatti.html" style="font-weight: bold !important; color: #ff6b6b !important; text-decoration: underline !important;">Segnala un Evento & Contatti</a></li>            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy & Note Legali</a></li>
+        </ul>
+    </nav>
+    <div id="drawer-backdrop" class="backdrop"></div>
+
+    <!-- CONTENUTO PAGINA CONTATTI / SEGNALAZIONE -->
+    <main class="home-content" style="max-width: 700px; margin: 20px auto; padding: 0 15px;">
+
+        <div style="text-align: center; margin-bottom: 25px;">
+            <h2 style="font-family: 'Henny Penny', cursive; font-size: 2rem; color: #333; margin-bottom: 10px;">Segnala un Evento</h2>
+            <p style="color: #666; font-size: 0.95rem;">Conosci un festival, una fiera o una sagra da aggiungere a FestMap? Compila il modulo sottostante o contattaci direttamente.</p>
+        </div>
+
+        <!-- Form di Segnalazione (Collegato a FormSubmit gratuito - Sostituisci l'email con la tua) -->
+        <form action="https://formsubmit.co/joycew@seekerdcode.it" method="POST" style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: flex; flex-direction: column; gap: 15px;">
+
+            <!-- Configurazione opzionale per FormSubmit -->
+            <input type="hidden" name="_subject" value="Nuova segnalazione evento da FestMap!">
+            <input type="hidden" name="_captcha" value="false">
+
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <label for="nome-evento" style="font-weight: 600; font-size: 0.9rem; color: #444;">Nome dell'Evento *</label>
+                <input type="text" id="nome-evento" name="Nome Evento" required placeholder="Es. Sagra del Tartufo" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="categoria-evento" style="font-weight: 600; font-size: 0.9rem; color: #444;">Categoria *</label>
+                    <select id="categoria-evento" name="Categoria" required style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; background: #fff;">
+                        <option value="">Seleziona categoria</option>
+                        <option value="Wild">Wild Festivals</option>
+                        <option value="Comics">Comics & Cosplay</option>
+                        <option value="Food">Food & Good</option>
+                        <option value="Folk">Folklore & Tradizioni</option>
+                    </select>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="citta-evento" style="font-weight: 600; font-size: 0.9rem; color: #444;">Città e Provincia *</label>
+                    <input type="text" id="citta-evento" name="Localita" required placeholder="Es. Siena (SI)" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="data-inizio" style="font-weight: 600; font-size: 0.9rem; color: #444;">Data Inizio *</label>
+                    <input type="date" id="data-inizio" name="Data Inizio" required style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="data-fine" style="font-weight: 600; font-size: 0.9rem; color: #444;">Data Fine</label>
+                    <input type="date" id="data-fine" name="Data Fine" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <label for="link-evento" style="font-weight: 600; font-size: 0.9rem; color: #444;">Sito Web o Link Social di Riferimento</label>
+                <input type="url" id="link-evento" name="Link Evento" placeholder="https://..." style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <label for="descrizione-evento" style="font-weight: 600; font-size: 0.9rem; color: #444;">Breve descrizione o dettagli utili</label>
+                <textarea id="descrizione-evento" name="Descrizione" rows="4" placeholder="Raccontaci qualcosa sull'evento..." style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <label for="email-mittente" style="font-weight: 600; font-size: 0.9rem; color: #444;">La tua Email (per eventuali contatti) *</label>
+                <input type="email" id="email-mittente" name="Email Contatto" required placeholder="joycew@seekerdcode.it" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+            </div>
+
+            <button type="submit" style="background: #ff6b6b; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.2s;">Invia Segnalazione</button>
+        </form>
+
+        <!-- Sezione Contatti Diretti -->
+        <div style="margin-top: 40px; text-align: center; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <h3 style="margin-bottom: 10px; color: #333;">Hai bisogno di assistenza o collaborazioni?</h3>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">Puoi scriverci direttamente via email all'indirizzo ufficiale del progetto:</p>
+            <a href="mailto:joycew@seekerdcode.it" style="color: #ff6b6b; font-weight: bold; text-decoration: none; font-size: 1.1rem;">joycew@seekerdcode.it</a>
+        </div>
+
+    </main>
+
+</div>
+
+<!-- Script globale per la gestione del menu a tendina (Drawer) -->
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
