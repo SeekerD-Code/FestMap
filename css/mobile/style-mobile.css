@@ -54,4 +54,9 @@
         transform: scale(0.92);
         background: #6a1bb2;
     }
+    /* Nascondi il pulsante desktop su schermi mobile */
+    #pwa-install-pc-btn {
+        display: none !important;
+    }
+}
 }
