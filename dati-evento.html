@@ -176,7 +176,7 @@
                 const testoLuogo = ev.luogo || 'Luogo non specificato';
 
                 if (ev.latitudine && ev.longitudine && ev.latitudine !== 0 && ev.longitudine !== 0) {
-                    luogoEl.innerHTML = `<a href="../index.html?lat=${ev.latitudine}&lng=${ev.longitudine}" style="color: #007bff; text-decoration: underline;" title="Visualizza sulla mappa">${testoLuogo} 📍</a>`;
+                    luogoEl.innerHTML = `<a href="./index.html?lat=${ev.latitudine}&lng=${ev.longitudine}" style="color: #007bff; text-decoration: underline;" title="Visualizza sulla mappa">${testoLuogo} 📍</a>`;
                 } else {
                     luogoEl.textContent = testoLuogo;
                 }
