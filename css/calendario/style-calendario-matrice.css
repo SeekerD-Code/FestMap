@@ -1,0 +1,305 @@
+/* ==========================================================
+   MATRICE ANNUALE E CALENDARIO VERO E PROPRIO
+   ========================================================== */
+
+/* Contenitore Principale Matrice Annuale (Fisso, senza zoom al passaggio del mouse) */
+.matrix-container {
+    width: 100%;
+    background: rgba(20, 15, 35, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+    margin-top: 30px;
+    box-sizing: border-box;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Regole generali per la griglia e le intestazioni compatte */
+.matrix-grid {
+    display: grid;
+    grid-template-columns: 50px repeat(31, minmax(24px, 1fr));
+    gap: 2px;
+    padding: 0px;
+    min-width: 900px;
+    transform: none !important;
+    transition: none !important;
+}
+
+.matrix-header-cell {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 6px 2px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.matrix-corner-empty {
+    background: transparent;
+    border: none;
+}
+
+/* Stile specifico per le etichette dei mesi */
+.matrix-month-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #fff;
+    padding: 0 2px;
+    background: rgba(25, 20, 45, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* --- Celle del Giorno nella Matrice (Uniche ad avere l'effetto zoom) --- */
+.matrix-day-cell {
+    aspect-ratio: 1;
+    max-height: 32px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgb(163, 107, 107);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.matrix-day-cell.invalid {
+    background: rgba(0, 0, 0, 0.15);
+    border: none;
+    cursor: default;
+    opacity: 0.2;
+}
+
+.matrix-day-cell.has-events {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.matrix-day-cell.has-events:hover {
+    transform: scale(1.15);
+    z-index: 10;
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.matrix-day-cell.today {
+    border: 4px solid #31d6e5 !important;
+}
+
+/* --- Categorie Ufficiali e Colori --- */
+.cat-comics {
+    background: #4a67fa;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.cat-wild {
+    background: #9b2af1;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.cat-food {
+    background: #de0606ba;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.cat-folk {
+    background: #2b9348;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.cat-default {
+    background: #d6d6d6;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* --- Pulsante Tooltip Mappa nel Modale --- */
+.btn-mappa-tooltip {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3.5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.btn-mappa-tooltip:hover {
+    transform: scale(1.1);
+    background-color: #ffffff;
+}
+
+/* --- Modale / Popup Riepilogo Giornaliero --- */
+.matrix-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 6, 20, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.matrix-modal-content {
+    background: rgba(25, 20, 45, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    max-width: 950px !important; /* Allarghiamo il modale per ospitare le colonne */
+    width: 95% !important;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    animation: modalScaleIn 0.2s ease forwards;
+}
+.matrix-modal-columns-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 16px;
+    align-items: stretch;
+    min-width: max-content; /* Forza le colonne a restare sulla stessa riga */
+    padding-bottom: 8px; /* Spaziatura per la barra di scorrimento */
+}
+.matrix-category-column {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 220px; /* Larghezza fissa per ogni colonna */
+    flex-shrink: 0; /* Impedisce alla colonna di rimpicciolirsi o andare a capo */
+}
+
+.matrix-column-header {
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: #fff;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.matrix-column-header img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+@keyframes modalScaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.matrix-modal-header {
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.matrix-modal-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+.matrix-modal-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.matrix-modal-close:hover {
+    color: #fff;
+}
+
+.matrix-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: auto !important; /* Abilita lo scroll orizzontale se lo spazio non basta */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.matrix-event-card-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.matrix-event-card-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 65, 108, 0.4);
+}
+
+.matrix-event-title {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+.matrix-event-details {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    gap: 12px;
+}
+
+/* --- Stile Quadratini Legenda Categorie --- */
+.legend-color-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: inline-block;
+}

@@ -1,0 +1,159 @@
+/* --- Ottimizzazione Matrice Calendario (Giorni a sinistra, Mesi in alto) - Mobile --- */
+@media screen and (max-width: 767px) {
+
+    .calendar-unified-wrapper {
+        padding: 8px !important;
+        margin-top: 10px !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
+    }
+
+    .matrix-container {
+        width: 100% !important;
+        overflow-x: hidden;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin-top: 10px !important;
+        border-radius: 8px !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        max-height: 70vh !important;
+    }
+
+    /* Griglia invertita: 13 colonne (1 per i giorni a sinistra + 12 mesi) e 32 righe (1 intestazione + 31 giorni) */
+    .matrix-grid {
+        display: grid !important;
+        grid-template-columns: 32px repeat(12, minmax(0, 1fr)) !important;
+        grid-template-rows: auto repeat(31, minmax(24px, auto)) !important;
+        gap: 2px !important;
+        min-width: 100% !important;
+        padding: 4px !important;
+        box-sizing: border-box;
+    }
+
+    .matrix-corner-empty {
+        background: transparent !important;
+        border: none !important;
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+    }
+
+    /* Intestazioni dei Mesi in alto (12 colonne) */
+    .matrix-month-label {
+        font-size: 0.65rem !important;
+        font-weight: bold !important;
+        color: #fff !important;
+        padding: 4px 1px !important;
+        background: rgba(25, 20, 45, 0.95) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 3px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 26px !important;
+        white-space: nowrap !important;
+    }
+
+    /* Etichette dei Giorni sul lato sinistro (da 1 a 31 sulle righe) */
+    .matrix-header-cell {
+        font-size: 0.7rem !important;
+        font-weight: bold !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        padding: 0 2px !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-radius: 3px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 100% !important;
+        min-height: 24px !important;
+    }
+
+    /* Celle dei giorni all'interno della matrice */
+    .matrix-day-cell {
+        height: 100% !important;
+        min-height: 24px !important;
+        width: 100% !important;
+        aspect-ratio: auto !important;
+        font-size: 0.65rem !important;
+        font-weight: bold !important;
+        border-radius: 3px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Riduciamo leggermente i font e i padding delle celle per farle entrare tutte comodamente */
+    .matrix-header-cell,
+    .matrix-month-label,
+    .matrix-day-cell {
+        font-size: 0.7rem;
+        padding: 2px 0;
+        min-width: 0; /* Impedisce alle celle di espandersi oltre la colonna */
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Legenda inferiore */
+    .calendar-legend-container {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        padding: 10px !important;
+        font-size: 0.75rem !important;
+        margin-top: 15px !important;
+    }
+
+    .legend-item img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    .matrix-modal-overlay {
+        padding: 10px !important;
+    }
+
+    .matrix-modal-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 85vh !important;
+        margin: 0 !important;
+    }
+
+    .matrix-modal-body {
+        padding: 10px !important;
+        overflow-x: auto !important;
+    }
+
+    /* Mantiene le colonne affiancate in orizzontale abilitando lo scroll laterale fluido */
+    .matrix-modal-columns-container {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10px !important;
+        min-width: max-content !important;
+        overflow-x: auto !important;
+        padding-bottom: 10px !important;
+    }
+
+    /* Rimpicciolisce la larghezza fissa della singola colonna per adattarla agli schermi piccoli */
+    .matrix-category-column {
+        width: 260px !important;
+        min-width: 260px !important;
+        padding: 8px !important;
+    }
+
+    .matrix-event-card-item {
+        padding: 8px !important;
+    }
+
+    .matrix-event-title {
+        font-size: 1rem !important;
+    }
+
+    .matrix-event-details {
+        font-size: 0.85rem !important;
+    }
+}

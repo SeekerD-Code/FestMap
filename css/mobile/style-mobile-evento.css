@@ -1,0 +1,80 @@
+/* ================================================================= */
+/* OPTIMIZED MOBILE STYLES - DETTAGLI EVENTO                        /*
+/* ================================================================= */
+
+@media (max-width: 768px) {
+    /* Ottimizzazione del contenitore principale per sfruttare lo schermo */
+    .dettaglio-main-container {
+        margin: 10px;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: none;
+    }
+
+    /* Titolo dell'evento più compatto ma leggibile */
+    #det-titolo {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        line-height: 1.3;
+    }
+
+    /* Disposizione in verticale su mobile */
+    .dettaglio-top-section {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Box locandina a larghezza piena ed equilibrata */
+    .dettaglio-locandina-box {
+        width: 100%;
+        max-width: 100%;
+        flex: none;
+    }
+
+    #det-locandina {
+        width: 100%;
+        height: auto;
+        max-height: 400px; /* Grande impatto visivo anche su smartphone verticali */
+        object-fit: contain;
+        border-radius: 6px;
+    }
+
+    /* Box informazioni ottimizzato nei testi e nelle distanze */
+    .dettaglio-info-box {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .dettaglio-info-box p {
+        font-size: 0.95rem;
+        margin: 8px 0;
+        word-break: break-word; /* Evita sbordamenti di numeri o email lunghi */
+    }
+
+    /* Pulsanti di azione a larghezza piena per un comodo tap con il dito */
+    .btn-azione {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-right: 0;
+        margin-top: 10px;
+        padding: 12px 15px;
+        box-sizing: border-box;
+        font-size: 1rem;
+    }
+
+    /* Sezione inferiore (descrizione) */
+    .dettaglio-bottom-section {
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+
+    .dettaglio-bottom-section h3 {
+        font-size: 1.1rem;
+    }
+
+    #det-descrizione {
+        font-size: 0.95rem;
+    }
+}

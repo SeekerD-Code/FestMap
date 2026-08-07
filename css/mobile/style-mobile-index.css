@@ -1,0 +1,161 @@
+/* --- Stili Specifici Mobile per la Home (Index) --- */
+@media screen and (max-width: 767px) {
+    /* Forza la pagina a occupare esattamente tutta la larghezza dello smartphone */
+    html, body {
+        width: 100% !important;
+        overflow-x: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .main-app-container,
+    .home-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+
+    /* Sposta giù la barra di navigazione superiore e il contatore */
+    .main-nav-bar,
+    .nav-container,
+    .header-top-mobile {
+        margin-top: 5px;
+        padding-top: 5px;
+    }
+
+    /* Abbassa e adatta il badge contatore eventi */
+    .counter-badge,
+    #event-counter,
+    .events-counter-pill {
+        font-size: 0.85rem !important;
+        padding: 4px 8px !important;
+        display: inline-block;
+    }
+
+    /* Soluzione per l'ordinamento tagliato: lo mettiamo a riga dedicata sotto la barra di ricerca o lo compattiamo */
+    .search-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 10px;
+    }
+
+    .search-bar-wrapper {
+        width: 100%;
+        display: flex;
+        gap: 6px;
+    }
+
+    #search-input {
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* Rende il selettore dell'ordinamento visibile e ben spaziato */
+    select#sort-select,
+    .sort-dropdown {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        background-color: #fff;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+
+    /* Sezione di ricerca */
+    .search-section {
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        border-radius: 0;
+    }
+
+    .search-bar-wrapper {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    #search-input {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+    }
+
+    .btn-filter {
+        padding: 0 12px;
+        font-size: 0.9rem;
+    }
+
+    /* Annulla la griglia a colonne larghe del PC e forza una colonna singola fluida */
+    .events-grid-top,
+    .events-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    /* Adattamento delle Card Evento */
+    .card-evento {
+        padding: 12px;
+        width: 100%;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-date {
+        font-size: 0.88rem;
+    }
+
+    .home-content h2,
+    .upcoming-events-section h3 {
+        font-size: 1.1rem;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .home-categories-bar {
+        justify-content: center; /* Centra gli elementi su mobile */
+        gap: 6px;
+        padding: 8px 10px;
+    }
+
+    /* Pulsanti/chip leggermente ridotti su mobile */
+    .category-chip {
+        padding: 6px 10px;
+        font-size: 0.82rem;
+        border-radius: 16px;
+    }
+
+    .category-chip .chip-img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .category-chip .folk-icon-fix {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Annulla il "margin-left: auto" di PC e fa andare il pulsante sotto */
+    .btn-segnala-chip {
+        margin-left: 0 !important;
+        width: 100%; /* Opzionale: lo fa estendere o lo centra */
+        justify-content: center;
+        margin-top: 4px;
+        background: #ff6b6b !important;
+        color: white !important;
+    }
+
+    .btn-segnala-chip span {
+        color: white !important;
+    }
+
+}

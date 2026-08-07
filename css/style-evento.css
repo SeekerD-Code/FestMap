@@ -1,0 +1,123 @@
+/* Stili specifici per la pagina di dettaglio */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Barra superiore solo con menu (senza filtri) */
+        .app-header {
+            background: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dettaglio-main-container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Nome evento in alto */
+        #det-titolo {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        /* Layout superiore: Locandina a sinistra, Info a destra */
+        .dettaglio-top-section {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .dettaglio-locandina-box {
+            flex: 0 0 45%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        #det-locandina {
+            width: 100%;
+            height: auto;           /* Lascia che l'altezza sia proporzionale */
+            max-height: 500px;      /* Dà un'altezza generosa e di grande impatto */
+            object-fit: contain;    /* Mostra tutta la locandina senza tagliarla */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            background: #f1f2f6;    /* Sfondo di cortesia in caso di immagini trasparenti */
+        }
+
+        .dettaglio-info-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .dettaglio-info-box p {
+            margin: 10px 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .dettaglio-info-box strong {
+            color: #495057;
+        }
+
+        /* Sezione inferiore per descrizione e tutto il resto */
+        .dettaglio-bottom-section {
+            margin-top: 35px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .dettaglio-bottom-section h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        #det-descrizione {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+            white-space: pre-line; /* Mantiene la formattazione del testo/andate a capo */
+        }
+
+        .btn-azione {
+            display: inline-block;
+            margin-top: 15px;
+            margin-right: 10px;
+            padding: 10px 18px;
+            background: #007bff;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .btn-azione:hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .dettaglio-top-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            .dettaglio-locandina-box {
+                flex: 0 0 auto;
+                width: 100%;
+            }
+        }
